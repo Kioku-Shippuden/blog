@@ -1,8 +1,10 @@
 import React from 'react'
-
+import './Background.scss'
 function Backgound() {
   return (
-    <div>Backgound</div>
+    <div className='background-image'>
+      <img src="/background.jpeg" alt="Example Image" />
+    </div>
   )
 }
 
