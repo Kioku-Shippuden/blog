@@ -25,7 +25,7 @@ function SignInByEmail(props) {
         </div>
       </div>
       <div className='sign-in-btn'>Sign in</div>
-      <div className='footer' onClick={() => {displayAllOption()}}>&lt; All sign in options</div>
+      <div className='footer' onClick={displayAllOption}>&lt; All sign in options</div>
     </div>
   )
 }

@@ -5,6 +5,7 @@ import ReadPage from '../src/pages/ReadPage/ReadPage';
 import WritePage from '../src/pages/WritePage/WritePage';
 import SignInPage from '../src/pages/SignInPage/SignInPage';
 import SignUpPage from '../src/pages/SignUpPage/SignUpPage';
+import ResetPasswordPage from './pages/ResetPasswordPage/ResetPasswordPage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/newpost/:user_id' element={<WritePage />}></Route>
         <Route path='/sign_in' element={<SignInPage />}></Route>
         <Route path='/sign_up' element={<SignUpPage />}></Route>
+        <Route path='/reset_password' element={<ResetPasswordPage />}></Route>
       </Routes>
     </div>
   );

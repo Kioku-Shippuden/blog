@@ -6,7 +6,10 @@ function SignInOption(props) {
   const {displayAccountOption} = props;
   const navigate = useNavigate();
   const navigateSignUp = () => {
-    navigate('/sign_up')
+    navigate('/sign_up');
+  }
+  const navigateForgotPass = () => {
+    navigate('/reset_password');
   }
   return (
     <div className='sign-in-options'>
@@ -24,7 +27,7 @@ function SignInOption(props) {
           </div>
           <div className='text'>Sign in with Facebook</div>
         </div>
-        <div className='option' onClick={() => {displayAccountOption()}}>
+        <div className='option' onClick={displayAccountOption}>
           <div className='image'>
             <img src="/account-logo.png" alt="account option" />
           </div>
@@ -37,8 +40,8 @@ function SignInOption(props) {
           <div className='highlight' onClick={navigateSignUp}>Create one</div>
         </div>
         <div className='element'>
-          <div>Forgot email or trouble signning in? &nbsp;</div>
-          <div className='highlight'>Get help</div>
+          <div>Forgot password or trouble signning in? &nbsp;</div>
+          <div className='highlight' onClick={navigateForgotPass}>Change password</div>
         </div>
       </div>
     </div>
