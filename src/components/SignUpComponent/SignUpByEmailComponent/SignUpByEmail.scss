@@ -1,0 +1,59 @@
+.sign-up-email{
+    padding: 30px;
+    font-family: 'Kalam', cursive;
+    .header {
+        margin: 10px 0;
+        font-weight: 700;
+        font-size: 30px;
+    }
+    .sub-header {
+        margin: 10px 0;
+        font-size: 25px;
+        font-weight: 400;
+    }
+    .infor-box {
+        padding: 10px;
+        font-size: 20px;
+        font-weight: 400;
+        margin: 10px 20px;
+        .box-element {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            .title {
+                flex: 1 1 40%;
+                text-align: left;
+            }
+            .input {
+                flex: 1 1 60%;
+                border-bottom: 1px solid #000000;
+                input {
+                    width: 95%;
+                    border: none;
+                    font-size: 18px;
+                    padding: 5px 10px;
+                    font-family: 'Kalam', cursive;
+                }
+            }
+        }
+    }
+    .sign-in-btn {
+        width: 30%;
+        padding: 10px;
+        font-size: 20px;
+        font-weight: 700;
+        cursor: pointer;
+        color: #ffffff;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 20px;
+        background-color: #000000;
+    }
+    .footer {
+        margin-top: 20px;
+        font-size: 20px;
+        font-weight: 300;
+        color: #059213;
+        cursor: pointer;
+    }
+}

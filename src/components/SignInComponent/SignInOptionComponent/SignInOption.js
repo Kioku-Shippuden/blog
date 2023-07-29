@@ -1,8 +1,13 @@
 import React from 'react'
 import './SignInOption.scss'
+import { useNavigate } from 'react-router-dom';
 
 function SignInOption(props) {
   const {displayAccountOption} = props;
+  const navigate = useNavigate();
+  const navigateSignUp = () => {
+    navigate('/sign_up')
+  }
   return (
     <div className='sign-in-options'>
       <div className='header'>Welcome back</div>
@@ -29,7 +34,7 @@ function SignInOption(props) {
       <div className='footer'>
         <div className='element'>
           <div>No account? &nbsp;</div>
-          <div className='highlight'>Create one</div>
+          <div className='highlight' onClick={navigateSignUp}>Create one</div>
         </div>
         <div className='element'>
           <div>Forgot email or trouble signning in? &nbsp;</div>
