@@ -1,5 +1,5 @@
 import React from 'react'
-import './SignInByEmail.scss'
+import './style/SignInByEmail.scss'
 
 function SignInByEmail(props) {
   const {displayAllOption} = props;

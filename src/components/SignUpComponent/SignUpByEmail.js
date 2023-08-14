@@ -1,5 +1,5 @@
 import React from 'react'
-import './SignUpByEmail.scss';
+import './style/SignUpByEmail.scss';
 
 function SignUpByEmail(props) {
   const {displayAllOption} = props;

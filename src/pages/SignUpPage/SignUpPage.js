@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import Backgound from '../../components/BackgroundComponent/Backgound';
-import SignUpOption from '../../components/SignUpComponent/SignUpOptionComponent/SignUpOption';
-import SignUpByEmail from '../../components/SignUpComponent/SignUpByEmailComponent/SignUpByEmail';
+import SignUpOption from '../../components/SignUpComponent/SignUpOption';
+import SignUpByEmail from '../../components/SignUpComponent/SignUpByEmail';
 import './SignUpPage.scss';
 
 function SignUpPage() {

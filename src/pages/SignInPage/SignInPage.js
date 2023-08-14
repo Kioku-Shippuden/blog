@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import Backgound from '../../components/BackgroundComponent/Backgound';
-import SignInOption from '../../components/SignInComponent/SignInOptionComponent/SignInOption';
-import SignInByEmail from '../../components/SignInComponent/SignInByEmailComponent/SignInByEmail';
+import SignInOption from '../../components/SignInComponent/SignInOption';
+import SignInByEmail from '../../components/SignInComponent/SignInByEmail';
 import './SignInPage.scss';
 
 function SignInPage() {

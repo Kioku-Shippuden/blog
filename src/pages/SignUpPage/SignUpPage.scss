@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
 @import '../../components/BackgroundComponent/Background.scss',
-        '../../components/SignUpComponent/SignUpByEmailComponent/SignUpByEmail.scss',
-        '../../components/SignUpComponent/SignUpOptionComponent/SignUpOption.scss';
+        '../../components/SignUpComponent/style/SignUpByEmail.scss',
+        '../../components/SignUpComponent/style/SignUpOption.scss';
 
 .sign-up-page {
     height: 100%;

@@ -1,5 +1,5 @@
 import React from 'react'
-import './SignUpOption.scss';
+import './style/SignUpOption.scss';
 import { useNavigate } from 'react-router-dom';
 
 function SignUpOption(props) {
