@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+@import './ContentList.scss', './TopicSlide.scss', './ContentSaved.scss', './RecommendFollower.scss';
+.body-component {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    overflow: auto;
+    .main-body-component {
+        width: 65%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        border-right: 0.5px solid rgba(117, 117, 117, 0.2);
+    }
+    .sub-body-component {
+        width: 35%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        border-left: 0.5px solid rgba(117, 117, 117, 0.2);
+        .group-component {
+            width: 75%;
+            margin-top: 15px;
+            margin-bottom: 50px;
+            .footer-component {
+                color: #059213;
+                cursor: pointer;
+            }
+        }
+    }
+}

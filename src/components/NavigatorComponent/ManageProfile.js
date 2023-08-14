@@ -1,8 +1,16 @@
-import React from 'react'
+import React from 'react';
+import './style/ManageProfile.scss';
 
 function ManageProfile() {
   return (
-    <div>ManageProfile</div>
+    <div className='manage-profile-component' aria-hidden='true'>
+      <div className='avatar'>
+        <img src='/account-logo.png' alt='' />
+      </div>
+      <div className='icon'>
+        <i className='fal fa-chevron-down'></i>
+      </div>
+    </div>
   )
 }
 

@@ -1,8 +1,10 @@
 import React from 'react'
-
+import './style/Logo.scss';
 function Logo() {
   return (
-    <div>Logo</div>
+    <div className='logo-component' aria-hidden='true'>
+      <img src='/account-logo.png' alt='' />
+    </div>
   )
 }
 

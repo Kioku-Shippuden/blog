@@ -1,0 +1,17 @@
+.content-saved-component {
+    margin: 10px 0; 
+    .author-content {
+        display: flex;
+        align-items: center;
+        margin: 5px 0;
+        gap: 10px;
+        img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+    }
+    .estimate-time-component {
+        margin-top: 10px;
+    }
+}

@@ -1,0 +1,9 @@
+@import './Alert.scss', './CreateContent.scss', './Logo.scss', './ManageProfile.scss', './Search.scss';
+
+.navigator-component {
+    width: 100%;
+    height: 9%;
+    display: flex;
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(117, 117, 117, 0.2);
+}

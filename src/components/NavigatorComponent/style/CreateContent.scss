@@ -1,0 +1,14 @@
+.create-content-component {
+    width: 7%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    cursor: pointer;
+    .icon {
+        font-size: 24px !important;
+    }
+    .text {
+        margin-left: 5px;
+        font-size: 20px;
+    }
+}
