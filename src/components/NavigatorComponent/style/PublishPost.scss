@@ -1,0 +1,16 @@
+.publish-post-component {
+    width: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    cursor: pointer;
+    .publish-button {
+        display: flex;
+        padding: 5px 15px;
+        border-radius: 20px;
+        align-items: center;
+        justify-content: center;
+        background-color: #008001;
+        color: #ffffff !important;
+    }
+}

@@ -7,7 +7,7 @@ import './HomePage.scss';
 function HomePage() {
   return (
     <div className='home-page'>
-      <Navigator />
+      <Navigator typePage={'HomePage'}/>
       <Body />
     </div>
   )

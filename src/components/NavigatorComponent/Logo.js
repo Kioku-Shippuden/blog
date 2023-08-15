@@ -1,8 +1,9 @@
 import React from 'react'
 import './style/Logo.scss';
-function Logo() {
+function Logo(props) {
+  const {navigateHome} = props;
   return (
-    <div className='logo-component' aria-hidden='true'>
+    <div className='logo-component' aria-hidden='true' onClick={navigateHome}>
       <img src='/account-logo.png' alt='' />
     </div>
   )
