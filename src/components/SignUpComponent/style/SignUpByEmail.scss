@@ -41,6 +41,22 @@
                     font-family: 'Kalam', cursive;
                 }
             }
+            .err-border {
+                flex: 1 1 60%;
+                border-bottom: 1px solid red !important;
+                input {
+                    width: 95%;
+                    border: none;
+                    font-size: 18px;
+                    padding: 5px 10px;
+                    font-family: 'Kalam', cursive;
+                }
+            }
+        }
+        .err {
+            color: red;
+            margin-top: 5px;
+            margin-left: 40%;
         }
     }
     .sign-in-btn {
