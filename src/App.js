@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path='/home/:user_id' element={<HomePage />}></Route>
+        <Route path='/home' element={<HomePage />}></Route>
         <Route path='/:user_id/:content_id' element={<ReadPage />}></Route>
         <Route path='/newpost/:user_id' element={<WritePage />}></Route>
         <Route path='/sign_in' element={<SignInPage />}></Route>

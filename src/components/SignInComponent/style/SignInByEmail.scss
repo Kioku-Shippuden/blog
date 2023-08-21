@@ -42,6 +42,16 @@
                 }
             }
         }
+        .err {
+            margin-left: 40%;
+            color: red;
+        }
+        .check-box {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            margin-left: 40%
+        }
     }
     .sign-in-btn {
         width: 30%;
