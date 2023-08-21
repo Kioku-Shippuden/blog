@@ -34,7 +34,9 @@ export const callPostApiAsync = (key, api, body) => {
 export const callPostApiWithoutToken = (api, body) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const res = await axios.post(api, body);
+      const res = await axios.post(api, body, {
+        withCredentials: true
+      });
       resolve(res.data)
     } catch (err) {
       reject(null)
