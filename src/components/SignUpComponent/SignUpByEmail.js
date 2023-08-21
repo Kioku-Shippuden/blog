@@ -51,7 +51,7 @@ function SignUpByEmail(props) {
       formData.dateOfBirth
     );
 
-    if (Object.values(validationErrors).some(error => error)) {
+    if (Object.values(validated).some(error => error)) {
       setDisplayError(validated)
 			return;
     }
