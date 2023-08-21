@@ -10,14 +10,14 @@ import { useNavigate } from 'react-router-dom';
 import './style/Navigator.scss';
 
 function Navigator(props) {
-  const {typePage} = props;
+  const {typePage, content} = props;
   const navigate = useNavigate();
   
   const navigateHome = () => {
-    navigate('/home/1')
+    navigate('/home')
   }
   const navigateWritePage = () => {
-    navigate('/newpost/1')
+    navigate('/newpost')
   }
 
   return (
@@ -41,7 +41,7 @@ function Navigator(props) {
             <Logo navigateHome={navigateHome}/>
             <SaveCachePost />
           </div>
-          <PublishPost />
+          <PublishPost content={content}/>
           <Alert />
           <ManageProfile />
         </Fragment>
