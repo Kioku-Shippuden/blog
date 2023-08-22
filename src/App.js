@@ -13,8 +13,8 @@ function App() {
     <div className="App">
       <Routes>
         <Route path='/home' element={<HomePage />}></Route>
-        <Route path='/:user_id/:content_id' element={<ReadPage />}></Route>
-        <Route path='/newpost/:user_id' element={<WritePage />}></Route>
+        <Route path='/viewpost/:post_id' element={<ReadPage />}></Route>
+        <Route path='/newpost' element={<WritePage />}></Route>
         <Route path='/sign_in' element={<SignInPage />}></Route>
         <Route path='/sign_up' element={<SignUpPage />}></Route>
         <Route path='/reset_password' element={<ResetPasswordPage />}></Route>

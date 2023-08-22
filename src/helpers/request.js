@@ -92,7 +92,9 @@ export const callGetApi = (key, api) => {
 export const callGetApiWithoutToken = (api) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const res = await axios.get(api);
+      const res = await axios.get(api, {
+        withCredentials: true
+      });
       resolve(res.data)
     } catch (err) {
       reject(err)
