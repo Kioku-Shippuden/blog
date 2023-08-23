@@ -23,7 +23,7 @@ export const AuthProvider = ({children}) => {
 				"password": userInfo.userPass,
 			});
             setIsAuthen(true);
-            navigate('/home')
+            navigate('/')
         } catch (error) {
             console.error(error)
         }
@@ -55,6 +55,7 @@ export const AuthProvider = ({children}) => {
 			const apiUrl = 'http://localhost:3000/v1/api/auth/logout';
 			await callPostApiWithoutToken(apiUrl);
       		navigate('/sign_in');
+            setIsAuthen(false);
 		} catch (error) {
             console.error(error)
         }

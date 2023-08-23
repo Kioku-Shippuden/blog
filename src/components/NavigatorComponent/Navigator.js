@@ -14,10 +14,10 @@ function Navigator(props) {
   const navigate = useNavigate();
   
   const navigateHome = () => {
-    navigate('/home')
+    navigate('/');
   }
   const navigateWritePage = () => {
-    navigate('/newpost')
+    navigate('/new-story');
   }
 
   return (

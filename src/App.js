@@ -16,9 +16,9 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route element={<ProtectedRoutes />}>
-            <Route path='/home' element={<HomePage />}></Route>
-            <Route path='/viewpost/:post_id' element={<ReadPage />}></Route>
-            <Route path='/newpost' element={<WritePage />}></Route>
+            <Route path='/' element={<HomePage />}></Route>
+            <Route path='/:user_id/:post_id' element={<ReadPage />}></Route>
+            <Route path='/new-story' element={<WritePage />}></Route>
           </Route>
           <Route path='/sign_in' element={<SignInPage />}></Route>
           <Route path='/sign_up' element={<SignUpPage />}></Route>

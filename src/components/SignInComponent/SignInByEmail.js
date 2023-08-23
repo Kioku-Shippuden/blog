@@ -19,7 +19,7 @@ function SignInByEmail(props) {
 
 	useEffect(() => {
 		if (isAuthen) {
-		  navigate('/home')
+		  navigate('/')
 		}
 	}, [isAuthen])
 
