@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react';
-import { callPostApiWithoutToken } from '../../helpers/request';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
+import { useAuth } from '../../hook/useAuthentication';
 import './style/SignInByEmail.scss'
 
 function SignInByEmail(props) {
+	const {isAuthen, loginUser} = useAuth()
   	const {displayAllOption} = props;
 	const navigate = useNavigate();
 
@@ -16,6 +17,12 @@ function SignInByEmail(props) {
 		password: false
 	})
 
+	useEffect(() => {
+		if (isAuthen) {
+		  navigate('/home')
+		}
+	}, [isAuthen])
+
 	const validationForm = (userName, password) => {
 		const validated = {
 			userName: userName.length <= 0,
@@ -26,27 +33,22 @@ function SignInByEmail(props) {
 	}
 
   	const onSubmit = async () => {
-		const validated = validationForm(userNameRef.current.value, passwordRef.current.value)
+		const userName = userNameRef.current.value;
+		const userPass = passwordRef.current.value;
+		const validated = validationForm(userName, userPass);
+
 		if(validated.email || validated.password) {
 			setDisplayError(validated)
 			return;
 		}
 
-		try {
-			const apiUrl = 'http://localhost:3000/v1/api/auth/login';
-			await callPostApiWithoutToken(apiUrl, {
-				"username": userNameRef.current.value,
-				"password": passwordRef.current.value,
-			});
-      		navigate('/home');
-		} catch (err) {
-			throw(err)
-		} finally {
-			setDisplayError({
-				email: false,
-				password: false
-			})
-		}
+		const userInfo = {userName, userPass};
+		loginUser(userInfo);
+
+		setDisplayError({
+			email: false,
+			password: false
+		})
 	}
 
   return (

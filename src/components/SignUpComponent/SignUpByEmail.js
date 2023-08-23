@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react';
 import validator from 'validator';
-import { useNavigate } from 'react-router';
-import { callPostApiWithoutToken } from '../../helpers/request';
+import { useAuth } from '../../hook/useAuthentication';
 import './style/SignUpByEmail.scss';
 
 function SignUpByEmail(props) {
   const {displayAllOption} = props;
+
+  const {registerUser} = useAuth();
 
   const emailRef = useRef(null);
   const userNameRef = useRef(null);
@@ -13,7 +14,6 @@ function SignUpByEmail(props) {
   const confirmPassRef = useRef(null);
   const dateOfBirthRef = useRef(null);
 
-  const navigate = useNavigate();
   const [displayError, setDisplayError] = useState({
 		email: false,
     userName: false,
@@ -35,40 +35,21 @@ function SignUpByEmail(props) {
 	}
 
   const onSubmit = async () => {
-    const formData = {
-      email: emailRef.current.value,
-      userName: userNameRef.current.value,
-      password: passwordRef.current.value,
-      confirmPass: confirmPassRef.current.value,
-      dateOfBirth: dateOfBirthRef.current.value
-    };
-
-    const validated = validationForm(
-      formData.email, 
-      formData.userName,
-      formData.password,
-      formData.confirmPass,
-      formData.dateOfBirth
-    );
+    const userName = userNameRef.current.value;
+    const userEmail = emailRef.current.value;
+    const userPass = passwordRef.current.value;
+    const userPass2 = confirmPassRef.current.value;
+    const userBirth = dateOfBirthRef.current.value;
+    const userInfo = { userEmail,  userName, userPass, userPass2, userBirth };
+    const validated = validationForm( userEmail,  userName, userPass, userPass2, userBirth);
 
     if (Object.values(validated).some(error => error)) {
       setDisplayError(validated)
 			return;
     }
 
-    try {
-      const apiUrl = 'http://localhost:3000/v1/api/auth/signup';
-      await callPostApiWithoutToken(apiUrl, {
-        "username": userNameRef.current.value,
-        "email"   : emailRef.current.value,
-        "password": passwordRef.current.value,
-        "birth"   : dateOfBirthRef.current.value
-      });
+    registerUser(userInfo);
 
-      navigate('/sign_in');
-    } catch (err) {
-      throw(err)
-    } finally {
     setDisplayError({
       email: false,
       userName: false,
@@ -76,8 +57,6 @@ function SignUpByEmail(props) {
       confirmPass: false,
       dateOfBirth: false
     });
-  }
-
   }
 
   return (
