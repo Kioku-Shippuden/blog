@@ -3,25 +3,10 @@ import './style/PublishPost.scss';
 import { callPostApiWithoutToken } from '../../helpers/request';
 
 function PublishPost(props) {
-  const {content} = props;
+  const {content, setIsPublish} = props;
 
   const onPublish = async () => {
-    if (content === '') return;
-    try {
-			const apiUrl = 'http://localhost:3000/v1/api/post/publish';
-			const reponse = await callPostApiWithoutToken(apiUrl, {
-				"postTitle": "Vu Anh Khoa",
-        "postStatus": "publish",
-        "postPermit": "private",
-        "postCategory": "tech",
-        "postContent": content
-			});
-      if (reponse.status === 200) {
-        
-      }
-		} catch (err) {
-			throw(err)
-		}
+    setIsPublish(true);
   }
 
   return (

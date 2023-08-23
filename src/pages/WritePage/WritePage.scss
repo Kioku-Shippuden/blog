@@ -3,6 +3,91 @@
         '../../components/WriteContentComponent/WriteContent.scss';
 
 .write-page {
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    .publish-form {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 70vh;
+        opacity: 0.8;
+        border-radius: 30px;
+        background-color: white;
+        transform: translate(-50%, -50%);
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .title-form {
+            padding: 10px;
+            width: 80%;
+            display: flex;
+            justify-content: center;
+        }
+        .body-form {
+            padding: 10px 20px;
+            width: 80%;
+            .half-component {
+                margin: 10px 0;
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                .name {
+                    padding: 5px;
+                    flex: 1 1 30%;
+                }
+                .input {
+                    padding: 5px;
+                    flex: 1 1 70%;
+                    border-bottom: 1px solid #000000;
+                    input {
+                        width: 95%;
+                        border: none;
+                        font-size: 18px;
+                        padding: 5px 10px;
+                        font-family: 'Kalam', cursive;
+                    }
+                }
+            }
+            .single-component {
+                margin: 20px 0;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                .input {
+                    width: 100%;
+                    textarea {
+                        width: 100%;
+                        height: 15vh;
+                        font-size: 18px;
+                        padding: 5px 10px;
+                        font-family: 'Kalam', cursive;
+                    }
+                }
+            }
+            .half-err {
+                color: red !important;
+                margin-left: 30%;
+            }
+            .single-err {
+                color: red !important;
+            }
+        }
+        .footer-form {
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            .submit-btn {
+                color: #ffffff !important;
+                padding: 10px 20px;
+                border-radius: 20px;
+                background-color: #008001;
+            }
+        }
+    }
 }
