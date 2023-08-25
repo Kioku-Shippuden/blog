@@ -3,15 +3,15 @@ import './style/PublishPost.scss';
 import { callPostApiWithoutToken } from '../../helpers/request';
 
 function PublishPost(props) {
-  const {content, setIsPublish} = props;
+  const {content, setShowPublishPopup} = props;
 
-  const onPublish = async () => {
-    setIsPublish(true);
+  const showPublishPopup = async () => {
+    setShowPublishPopup(true);
   }
 
   return (
     <div className='publish-post-component'>
-      <div className='publish-button tag-text' onClick={onPublish}>Publish</div>
+      <div className='publish-button tag-text' onClick={showPublishPopup}>Publish</div>
     </div>
   )
 }

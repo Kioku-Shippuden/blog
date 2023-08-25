@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import './style/Navigator.scss';
 
 function Navigator(props) {
-  const {typePage, content, setIsPublish, showProfilePopup, setShowProfilePopup} = props;
+  const {typePage, content, setShowPublishPopup, showProfilePopup, setShowProfilePopup} = props;
 
   const navigate = useNavigate();
   
@@ -42,7 +42,7 @@ function Navigator(props) {
             <Logo navigateHome={navigateHome}/>
             <SaveCachePost />
           </div>
-          <PublishPost content={content} setIsPublish={setIsPublish}/>
+          <PublishPost content={content} setShowPublishPopup={setShowPublishPopup}/>
           <Alert />
           <ManageProfile showProfilePopup={showProfilePopup} setShowProfilePopup={setShowProfilePopup}/>
         </Fragment>

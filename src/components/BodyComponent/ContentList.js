@@ -3,7 +3,17 @@ import './style/ContentList.scss'
 const grayText = {
   color: 'rgba(117, 117, 117, 1)'
 }
-function ContentList() {
+function ContentList(props) {
+  const { data } = props;
+
+  const setTitlePost = () => {
+
+  }
+
+  const setSummaryContent = () => {
+    return data.summarize
+  }
+  
   return (
     <div className='content-list-component'>
       <div className='information-content'>
@@ -11,10 +21,9 @@ function ContentList() {
           <img src='/account-logo.png' alt='' />
           <span className='title-text'>Kioku</span>
         </div>
-        <div className='sub-title-text'>What Is Geographic Information System (GIS)</div>
+        <div className='sub-title-text'>{data.title}</div>
         <div className='summary-content content-text'>
-          Everything you need to know about GIS, it's basic working, role in engineering and its applications. —
-          Geographic Information System is nothing but a computer application that captures, stores and displays...
+          {setSummaryContent()}
         </div>
         <div className='footer-content'>
           <div className='other-information tag-text'>

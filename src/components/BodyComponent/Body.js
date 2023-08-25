@@ -1,19 +1,33 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import TopicSlide from './TopicSlide';
 import ContentList from './ContentList';
 import ContentSaved from './ContentSaved';
 import RecommendFollower from './RecommendFollower';
+import { callGetApiWithoutToken } from '../../helpers/request';
 import './style/Body.scss'
 
 function Body() {
+  const [postData, setPostData] = useState([]);
+
+  const getAllPost = async () => {
+    const apiUrl = 'http://localhost:3000/v1/api/post/allPost';
+    const reponse = await callGetApiWithoutToken(apiUrl);
+    setPostData(reponse.metaData.metadata.postsData);
+  }
+  useEffect(() => {
+    getAllPost();
+  }, []);
+
   return (
     <div className='body-component'>
       <div className='main-body-component'>
         <TopicSlide />
-        <ContentList />
-        <ContentList />
-        <ContentList />
-        <ContentList />
+        {
+          postData.length > 0 &&
+          postData.map((data) => {
+            return (<ContentList data={data}/>)
+          })
+        }
       </div>
       <div className='sub-body-component'>
         <div className='group-component'>
