@@ -1,16 +1,14 @@
 import React from 'react';
 import './style/ManageProfile.scss';
-import { useAuth } from '../../hook/useAuthentication';
 
-function ManageProfile() {
-  const {logoutUser} = useAuth()
+function ManageProfile(props) {
+  const {showProfilePopup, setShowProfilePopup} = props;
 
-  const onSubmit = async () => {
-		logoutUser();
-	}
-
+  const handleProfilePopup = () => {
+    setShowProfilePopup(!showProfilePopup);
+  }
   return (
-    <div className='manage-profile-component' aria-hidden='true' onClick={onSubmit}>
+    <div className='manage-profile-component' aria-hidden='true' onClick={handleProfilePopup}>
       <div className='avatar'>
         <img src='/account-logo.png' alt='' />
       </div>

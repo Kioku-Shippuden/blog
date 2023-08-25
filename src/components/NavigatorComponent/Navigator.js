@@ -10,7 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import './style/Navigator.scss';
 
 function Navigator(props) {
-  const {typePage, content, setIsPublish} = props;
+  const {typePage, content, setIsPublish, showProfilePopup, setShowProfilePopup} = props;
+
   const navigate = useNavigate();
   
   const navigateHome = () => {
@@ -31,7 +32,7 @@ function Navigator(props) {
           </div>
           <CreateContent navigateWritePage={navigateWritePage}/>
           <Alert />
-          <ManageProfile />
+          <ManageProfile showProfilePopup={showProfilePopup} setShowProfilePopup={setShowProfilePopup}/>
         </Fragment>
       }
       {
@@ -43,7 +44,7 @@ function Navigator(props) {
           </div>
           <PublishPost content={content} setIsPublish={setIsPublish}/>
           <Alert />
-          <ManageProfile />
+          <ManageProfile showProfilePopup={showProfilePopup} setShowProfilePopup={setShowProfilePopup}/>
         </Fragment>
       }
     </div>

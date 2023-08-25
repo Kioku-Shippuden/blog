@@ -1,0 +1,26 @@
+.manage-profile {
+    position: absolute;
+    top: 9%;
+    right: 20px;
+    width: 200px;
+    background-color: white;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    .group-options {
+        display: flex;
+        gap: 15px;
+        padding: 20px 20px;
+        cursor: pointer;
+        .icon {
+            flex: 1 1 15%;
+        }
+        .title {
+            flex: 1 1 75%;
+        }
+    }
+    .group-options:hover {
+        background-color: #fafafa;
+      }
+    hr {
+        border-top: 0px solid #000000;
+    }
+}

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react'
 import Navigator from '../../components/NavigatorComponent/Navigator';
 import WriteContent from '../../components/WriteContentComponent/WriteContent';
+import ProfilePopup from '../../components/NavigatorComponent/ProfilePopup';
 import { callPostApiWithoutToken } from '../../helpers/request';
 import './WritePage.scss';
 
@@ -12,6 +13,7 @@ function WritePage() {
 
   const [value, setValue] = useState('');
   const [isPulish , setIsPublish] = useState(false);
+  const [showProfilePopup, setShowProfilePopup] = useState(false);
   const [displayError, setDisplayError] = useState({
 		title: false,
     tag: false,
@@ -75,6 +77,8 @@ function WritePage() {
         typePage={'WritePage'} 
         content={value} 
         setIsPublish = {setIsPublish}
+        showProfilePopup={showProfilePopup}
+        setShowProfilePopup={setShowProfilePopup}
       />
       <WriteContent value={value} setValue={setValue}/>
       {
@@ -145,6 +149,10 @@ function WritePage() {
             </div>
           </div>
         </div>
+      }
+      {
+        showProfilePopup === true &&
+        <ProfilePopup />
       }
     </div>
   )
