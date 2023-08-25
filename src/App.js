@@ -17,7 +17,7 @@ function App() {
         <Routes>
           <Route element={<ProtectedRoutes />}>
             <Route path='/' element={<HomePage />}></Route>
-            <Route path='/:user_id/:post_id' element={<ReadPage />}></Route>
+            <Route path='/read-story/:post_id' element={<ReadPage />}></Route>
             <Route path='/new-story' element={<WritePage />}></Route>
           </Route>
           <Route path='/sign_in' element={<SignInPage />}></Route>

@@ -14,6 +14,7 @@ function Body() {
     const reponse = await callGetApiWithoutToken(apiUrl);
     setPostData(reponse.metaData.listPost);
   }
+  
   useEffect(() => {
     getAllPost();
   }, []);
