@@ -6,23 +6,24 @@ import PublishForm from '../../components/WriteContentComponent/PublishForm';
 import './WritePage.scss';
 
 function WritePage() {
-  const [value, setValue] = useState('');
+  const [contentPost, setContentPost] = useState('');
+  const [isPulish , setIsPublish] = useState(false);
   const [showPublishPopup, setShowPublishPopup] = useState(false);
   const [showProfilePopup, setShowProfilePopup] = useState(false);
 
   return (
     <div className='write-page'>
       <Navigator 
-        typePage={'WritePage'} 
-        content={value} 
+        typePage={'WritePage'}
         setShowPublishPopup = {setShowPublishPopup}
         showProfilePopup={showProfilePopup}
         setShowProfilePopup={setShowProfilePopup}
       />
-      <WriteContent value={value} setValue={setValue}/>
+      <WriteContent contentPost={contentPost} setContentPost={setContentPost}/>
       {
         showPublishPopup === true && 
-        <PublishForm />
+        <PublishForm 
+          contentPost={contentPost} setShowPublishPopup={setShowPublishPopup}/>
       }
       {
         showProfilePopup === true &&

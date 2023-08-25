@@ -12,7 +12,7 @@ function Body() {
   const getAllPost = async () => {
     const apiUrl = 'http://localhost:3000/v1/api/post/allPost';
     const reponse = await callGetApiWithoutToken(apiUrl);
-    setPostData(reponse.metaData.metadata.postsData);
+    setPostData(reponse.metaData.listPost);
   }
   useEffect(() => {
     getAllPost();

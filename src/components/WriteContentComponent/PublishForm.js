@@ -3,46 +3,62 @@ import { callPostApiWithoutToken } from '../../helpers/request';
 import './PublishForm.scss';
 
 
-function PublishForm() {
+function PublishForm(props) {
+    const { contentPost, setShowPublishPopup } = props;
+
     const tagPostRef = useRef(null);
     const titlePostRef = useRef(null);
-    const sumaryPostRef = useRef(null);
+    const sumarizePostRef = useRef(null);
     const thumbnailPostRef = useRef(null);
+    const [selectedFile, setSelectedFile] = useState(null);
 
     const [displayError, setDisplayError] = useState({
 		title: false,
         tag: false,
-		summary: false,
+		summarize: false,
         thumbnail: false,
 	});
 
     const changeHandler = (e) => {
-        const { files } = e.target
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-        }
+        setSelectedFile(e.target.files[0]);
     }
 
-    const validationForm = (title, tag, summary, thumbnail) => {
+    const validationForm = (title, tag, summarize, thumbnail) => {
 		const validated = {
             tag: tag.length <= 0,
             title: title.length <= 0,
-            summary: summary.length <= 0,
-            thumbnail: thumbnail.length <= 0,
+            summarize: summarize.length <= 0,
+            thumbnail: !thumbnail,
         };
   
         return validated;
 	}
 
-    const handlePublishPost = async (title, tag, summary, value) => {
-        if (value === ' return') return;
+    const onSubmit = () => {
+        const title = titlePostRef.current.value;
+        const tag = tagPostRef.current.value;
+        const summarize = sumarizePostRef.current.value;
+        const thumbnail = thumbnailPostRef.current.value;
+        const validated = validationForm( title, tag, summarize, thumbnail);
     
-        let contentId = await publishContent(title, tag, summary, value);
-        // await publishThumnail(contentId);
+        if (Object.values(validated).some(error => error)) {
+            setDisplayError(validated)
+            return;
+        }
+    
+        handlePublishPost(title, tag, summarize, contentPost, selectedFile);
+        setShowPublishPopup(false);
+    }
+
+    const handlePublishPost = async (title, tag, summarize, contentPost, thumbnail) => {
+        if (contentPost === ' return') return;
+    
+        let contentId = await publishContent(title, tag, summarize, contentPost);
+        await publishThumnail(contentId, thumbnail);
         
     }
-      
-    const publishContent = async (title, tag, summary, value) => {
+
+    const publishContent = async (title, tag, summarize, contentPost) => {
         try {
             const apiUrl = 'http://localhost:3000/v1/api/post/publish';
             const reponse = await callPostApiWithoutToken(apiUrl, {
@@ -50,32 +66,25 @@ function PublishForm() {
                 "postStatus": "publish",
                 "postPermit": "private",
                 "postCategory": tag,
-                "postContent": value
+                "postSummarize": summarize,
+                "postContent": contentPost
             });
             return reponse.metaData.newPostId;
         } catch (err) {
             throw(err);
         }
-      }
-    
-    const publishThumnail = async (contentId) => {
-        // 
     }
 
-    const onSubmit = () => {
-        const title = titlePostRef.current.value;
-        const tag = tagPostRef.current.value;
-        const summary = sumaryPostRef.current.value;
-        const thumbnail = thumbnailPostRef.current.value;
-        const validated = validationForm( title, tag, summary, thumbnail);
-    
-        if (Object.values(validated).some(error => error)) {
-            setDisplayError(validated)
-            return;
+    const publishThumnail = async (contentId, thumbnail) => {
+        const formData = new FormData();
+        formData.append('image', thumbnail);
+
+        try {
+            const apiUrl = 'http://localhost:3000/v1/api/upload/image?topic=thumnail&postId=' + contentId;
+            await callPostApiWithoutToken(apiUrl, formData)
+        } catch (err) {
+            throw(err);
         }
-    
-        handlePublishPost(title, tag, summary, value);
-        setIsPublish(false);
     }
 
     return (
@@ -110,15 +119,15 @@ function PublishForm() {
                 }
                 <div className='single-component'>
                     <div className='title-text'>
-                        <p>Summary:</p>
+                        <p>Summarize:</p>
                     </div>
                     <div className='input'>
-                        <textarea ref={sumaryPostRef}/>
+                        <textarea ref={sumarizePostRef}/>
                     </div>
                 </div>
                 {
-                    displayError.summary === true &&
-                    <div className='single-err content-text'>Please Type Your Summary Post</div>
+                    displayError.summarize === true &&
+                    <div className='single-err content-text'>Please Type Your Summarize Post</div>
                 }
                 <div className='single-component'>
                     <div className='title-text'>

@@ -4,7 +4,7 @@ import ReactQuill from 'react-quill';
 import './WriteContent.scss';
 
 function WriteContent(props) {
-  const { value, setValue } = props;
+  const { contentPost, setContentPost } = props;
 
   const quillRef = useRef();
   const handleInsertImage = () => {
@@ -61,8 +61,8 @@ function WriteContent(props) {
       <ReactQuill
         ref={quillRef}
         theme='snow'
-        value={value}
-        onChange={setValue}
+        value={contentPost}
+        onChange={setContentPost}
         modules={modules}
         className='write-page-input'
       />

@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import './style/PublishPost.scss';
-import { callPostApiWithoutToken } from '../../helpers/request';
 
 function PublishPost(props) {
-  const {content, setShowPublishPopup} = props;
+  const { setShowPublishPopup } = props;
 
   const showPublishPopup = async () => {
     setShowPublishPopup(true);
