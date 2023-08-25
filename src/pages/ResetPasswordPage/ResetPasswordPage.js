@@ -18,6 +18,8 @@ function ResetPasswordPage() {
   const [emailError, setEmailError] = useState(false);
   const [codeCheckError, setCodeCheckError] = useState(false);
   const [passCheckError, setpassCheckError] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+	const [showConfirmPassword, setConfirmShowPassword] = useState(false);
 
   const navigate = useNavigate();
   const navigateSignIn = () => {
@@ -143,14 +145,22 @@ function ResetPasswordPage() {
               <div className='box-element'>
                 <div className='title'>New Password:</div>
                 <div className='input'>
-                  <input type="text" name="name" ref={passRef}/>
+                  <input name="name" ref={passRef} type={showPassword ? 'text' : 'password'}/>
                 </div>
+              </div>
+              <div className='check-box'>
+                <input type="checkbox" id="show-pass" name="show-pass" onChange={() => {setShowPassword(!showPassword)}}></input>
+                <label for="show-pass">Show Password</label><br></br>
               </div>
               <div className='box-element'>
                 <div className='title'> Confirm Password:</div>
                 <div className='input'>
-                  <input type="text" name="name" ref={repassRef}/>
+                  <input name="name" ref={repassRef} type={showConfirmPassword ? 'text' : 'password'}/>
                 </div>
+              </div>
+              <div className='check-box'>
+                <input type="checkbox" id="show-pass" name="show-pass" onChange={() => {setConfirmShowPassword(!showConfirmPassword)}}></input>
+                <label for="show-pass">Show Password</label><br></br>
               </div>
             </div>
             {

@@ -11,7 +11,6 @@ function SignInByEmail(props) {
   	const userNameRef = useRef(null);
   	const passwordRef = useRef(null);
 	const [showPassword, setShowPassword] = useState(false);
-	const [isWrongPassword, setWrongPassword] = useState(null);
 	const [displayError, setDisplayError] = useState({
 		username: false,
 		password: false

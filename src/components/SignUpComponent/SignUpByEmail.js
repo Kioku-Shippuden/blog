@@ -7,12 +7,13 @@ function SignUpByEmail(props) {
   const {displayAllOption} = props;
 
   const {registerUser} = useAuth();
-
   const emailRef = useRef(null);
   const userNameRef = useRef(null);
   const passwordRef = useRef(null);
   const confirmPassRef = useRef(null);
   const dateOfBirthRef = useRef(null);
+	const [showPassword, setShowPassword] = useState(false);
+	const [showConfirmPassword, setConfirmShowPassword] = useState(false);
 
   const [displayError, setDisplayError] = useState({
 		email: false,
@@ -100,8 +101,12 @@ function SignUpByEmail(props) {
         <div className='box-element'>
           <div className='title'>Password:</div>
           <div className={displayError.password ? 'err-border ' : 'input'}>
-            <input ref={passwordRef}/>
+            <input ref={passwordRef} type={showPassword ? 'text' : 'password'}/>
           </div>
+        </div>
+        <div className='check-box'>
+          <input type="checkbox" id="show-pass" name="show-pass" onChange={() => {setShowPassword(!showPassword)}}></input>
+          <label for="show-pass">Show Password</label><br></br>
         </div>
         {
 					displayError.password &&
@@ -110,8 +115,12 @@ function SignUpByEmail(props) {
         <div className='box-element'>
           <div className='title'>Confirm:</div>
           <div className={displayError.confirmPass ? 'err-border ' : 'input'}>
-            <input ref={confirmPassRef}/>
+            <input ref={confirmPassRef} type={showConfirmPassword ? 'text' : 'password'}/>
           </div>
+        </div>
+        <div className='check-box'>
+          <input type="checkbox" id="show-pass" name="show-pass" onChange={() => {setConfirmShowPassword(!showConfirmPassword)}}></input>
+          <label for="show-pass">Show Password</label><br></br>
         </div>
         {
 					displayError.confirmPass &&
