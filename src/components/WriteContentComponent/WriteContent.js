@@ -19,7 +19,7 @@ function WriteContent(props) {
         const formData = new FormData()
         formData.append('image', file)
 
-        const uploadUrl = 'http://localhost:3000/v1/api/upload/image'
+        const uploadUrl = 'http://localhost:3000/v1/api/upload/image?topic=content'
         fetch(uploadUrl, {
           method: 'POST',
           body: formData
