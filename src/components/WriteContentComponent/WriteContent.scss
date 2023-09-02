@@ -1,8 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
 .write-content-component {
-    margin: 0 15%;
-    height: 90%;
-    .write-page-input {
-        height: 90%;
-        border: none;
+    margin: 0 8%;
+    height: 85%;
+    .react-mde {
+        margin-top: 2%;
+        .mde-header {
+            background: none;
+            border-top: 1px solid #c8ccd0;
+            border-bottom: 1px solid #c8ccd0;
+            .mde-tabs {
+                button {
+                    padding: 10px 25px;
+                    border-radius: 22px;
+                    font-family: 'Kalam', cursive;
+                    font-size: 20px;
+                    font-weight: 500;
+                    color: #000000;
+                }
+                .selected {
+                    background-color: #1976d2;
+                    color: #ffffff;
+                }
+            }
+        }
+        .mde-textarea-wrapper {            
+            height: 65vh;
+            font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+            .mde-text {
+                padding: 20px;
+                height: 100% !important;
+                font-size: 30px !important;
+            }
+            .mde-text:focus {
+                outline: none;
+            }
+        }
+        .mde-preview {
+            height: 75vh;
+            padding: 20px;
+            text-align: start;
+            word-break: break-word;
+            word-spacing: 0.2rem;
+            font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+        }
+    }
+    .title-component {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        font-weight: 700;
+    }
+    .image-component {
+        display: flex;
+        max-width: 100%;
+        margin: 10px 0;
+        img {
+            max-width: 100%;
+        }
+        .image-small {
+            width: 30%;
+            height: auto;
+        }
+        .image-medium {
+            width: 50%;
+            height: auto;
+        }
+        .image-large {
+            width: 75%;
+            height: auto;
+        }
+    }
+    .image-positions-left {
+        justify-content: left;
+    }
+    .image-positions-right {
+        justify-content: right;
+    }
+    .image-positions-center {
+        justify-content: center;
     }
 }

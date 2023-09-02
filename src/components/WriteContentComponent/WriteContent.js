@@ -1,70 +1,193 @@
-import React, { useRef, useMemo } from 'react';
+import { useState, useRef } from 'react';
+import { callPostApiWithoutToken } from '../../helpers/request';
+import { styled } from '@mui/material/styles';
+import ReactMde from "react-mde";
+import Box from '@mui/material/Box';
+import showdown from 'showdown';
+import CodeIcon from '@mui/icons-material/Code';
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import TitleSharpIcon from '@mui/icons-material/TitleSharp';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+import FontDownloadIcon from '@mui/icons-material/FontDownload';
+import TextIncreaseIcon from '@mui/icons-material/TextIncrease';
+import TextDecreaseIcon from '@mui/icons-material/TextDecrease';
+import CenterFocusStrongIcon from '@mui/icons-material/CenterFocusStrong';
+import AddPhotoAlternateSharpIcon from '@mui/icons-material/AddPhotoAlternateSharp';
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import "react-mde/lib/styles/css/react-mde-all.css";
 import 'react-quill/dist/quill.snow.css'
-import ReactQuill from 'react-quill';
 import './WriteContent.scss';
 
+const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
+  position: 'absolute',
+  '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
+  '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
+    top: theme.spacing(2),
+    left: theme.spacing(2),
+  },
+}));
+
 function WriteContent(props) {
-  const { contentPost, setContentPost } = props;
+  const fileInputRef = useRef(null);
+  const [value, setValue] = useState("");
+  const [openToolbox, setOpenToolBox] = useState(true);
+  const [selectedTab, setSelectedTab] = useState("write");
+  const converter = new showdown.Converter();
+  
+  // Generate Markdown Preview
+  const generateMarkdownPreview = (markdown) => {
+    const htmlContent = customMarkdownRenderer(markdown);
+    return Promise.resolve(converter.makeHtml(htmlContent));
+  }
 
-  const quillRef = useRef();
-  const handleInsertImage = () => {
-    const input = document.createElement('input')
-    input.setAttribute('type', 'file')
-    input.setAttribute('accept', 'image/*')
-    input.click()
+  const customMarkdownRenderer = (markdown) => {
+    const titleRegex = /\[title\] ([^\n]+)/g;
+    const imageRegex = /!\[image\]\(([^)]+)\){([^}]*)}/g;
+  
+    const processedMarkdown = markdown
+      .replace(titleRegex, (match, content) => {
+        return `<div class='title-component'>
+          <p>${content}</p>
+        </div>`;
+      })
+      .replace(imageRegex, (match, src, attributes) => {
+        const sizeMatch = attributes.match(/size=([a-zA-Z]+)/);
+        const positionMatch = attributes.match(/position=([a-zA-Z]+)/);
 
-    input.onchange = (e) => {
-      const file = e.target.files[0]
-      if (file) {
-        const formData = new FormData()
-        formData.append('image', file)
+        const customSize = sizeMatch ? `image-${sizeMatch[1]}` : '';
+        const customPosition = positionMatch ? `image-positions-${positionMatch[1]}` : '';
+  
+        return `<div class='image-component ${customPosition}'>
+          <img src="${src}" alt="Image" class=" ${customSize}">
+        </div>`
+      });
+  
+    return processedMarkdown;
+  };
 
-        const uploadUrl = 'http://localhost:3000/v1/api/upload/image?topic=content'
-        fetch(uploadUrl, {
-          method: 'POST',
-          body: formData
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            const quill = quillRef.current.getEditor()
-            const range = quill.getSelection(true)
-            quill.insertEmbed(range.index, 'image', data.metaData)
-            quill.setSelection(range.index + 1)
-          })
-          .catch((error) => {
-            console.error('Image upload failed:', error)
-          })
+  // Handle Add Title
+  const addTitleMarkdown = () => {
+    const updatedMarkdown = `${value}\n[title] New Title`;
+    setValue(updatedMarkdown);
+  }
+
+  // Handle Add Image
+  const addImageMarkdown = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('image', file);
+      try {
+        const apiUrl = 'http://localhost:3000/v1/api/upload/image?topic=content';
+        const res = await callPostApiWithoutToken(apiUrl, formData);
+        generateImage(res.metaData);
+      } catch (err) {
+        console.log(err);
       }
     }
   }
 
-  const modules = useMemo(
-    () => ({
-      toolbar: {
-        handlers: {
-          image: handleInsertImage
-        },
-        container: [
-          [{ header: [1, 2, 3, 4, 5, 6, false] }],
-          [{ font: [] }],
-          [{ size: [] }],
-          ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-          [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-          ['link', 'image', 'video']
-        ]
-      }
-    }),
-    []
-  )
+  const generateImage = (linkImage) => {
+    const imageMarkdown = `![image](${linkImage}){position=center size=medium}`;
+    const updatedMarkdown = `${value}\n\n${imageMarkdown}`;
+    setValue(updatedMarkdown);
+  };
+
+  // Handle Add Code
+  const addCodeMarkdown = () => {
+    const codeMarkdown = "```\n// Your code here\n```";
+    const updatedMarkdown = `${value}\n\n${codeMarkdown}`;
+    setValue(updatedMarkdown);
+  }
+
+  // Handle Change Size Image
+  const changeImageSize = (option) => {
+    const selectedText = window.getSelection().toString().trim();
+  
+    if (selectedText.startsWith('![image](')) {
+      const updatedText = selectedText.replace(/size=(\w+)/, (match, size) => {
+        return `size=${option}`;
+      });
+      const updatedValue = value.replace(selectedText, updatedText);
+      setValue(updatedValue);
+    }
+  };
+
+  // Handle Change Position Image
+  const changeImagePosition = (option) => {
+    const selectedText = window.getSelection().toString().trim();
+  
+    if (selectedText.startsWith('![image](')) {
+      const updatedText = selectedText.replace(/position=(\w+)/, (match, position) => {
+        return `position=${option}`
+      });
+      const updatedValue = value.replace(selectedText, updatedText);
+      setValue(updatedValue);
+    }
+  };
+
+  const actions = [
+    { icon: <TitleSharpIcon />, name: 'Add title', onClick: () => addTitleMarkdown()},
+    { icon: <AddPhotoAlternateSharpIcon />, name: 'Add Image', ref: fileInputRef},
+    { icon: <KeyboardDoubleArrowLeftIcon />, name: 'Set Image Left', onClick: () => changeImagePosition('left')},
+    { icon: <CenterFocusStrongIcon />, name: 'Set Image Center', onClick: () => changeImagePosition('center') },
+    { icon: <KeyboardDoubleArrowRightIcon />, name: 'Set Image Right', onClick: () => changeImagePosition('right')},
+    { icon: <TextDecreaseIcon />, name: 'Set Small Size', onClick: () => changeImageSize('small')},
+    { icon: <FontDownloadIcon />, name: 'Set Medium Size', onClick: () => changeImageSize('medium')},
+    { icon: <TextIncreaseIcon />, name: 'Set Large Size', onClick: () => changeImageSize('large')},
+    { icon: <CodeIcon />, name: 'Add Code', onClick: () => addCodeMarkdown() },
+  ];
+  
   return (
     <div className='write-content-component'>
-      <ReactQuill
-        ref={quillRef}
-        theme='snow'
-        value={contentPost}
-        onChange={setContentPost}
-        modules={modules}
-        className='write-page-input'
+      {
+        selectedTab === 'write' &&
+        <Box sx={{ position: 'relative', height: '10%' }}>
+          <StyledSpeedDial
+            ariaLabel="SpeedDial playground example"
+            icon={<SpeedDialIcon />}
+            direction="right"
+            // open={openToolbox}
+          >
+          {actions.map((action) => (
+            <SpeedDialAction
+              key={action.name}
+              icon={action.icon}
+              tooltipTitle={action.name}
+              tooltipPlacement='bottom-end'
+              onClick={() => {
+                if (action.ref && action.name === 'Add Image') {
+                  action.ref.current.click();
+                } else {
+                  action.onClick();
+                }
+              }}
+            />
+          ))}
+          </StyledSpeedDial>
+        </Box>
+      }
+      <input
+        type="file"
+        accept="image/*"
+        onChange={addImageMarkdown}
+        style={{
+          display: 'none',
+        }}
+        ref={fileInputRef}
+      />
+      <ReactMde
+        value={value}
+        onChange={setValue}
+        selectedTab={selectedTab}
+        onTabChange={setSelectedTab}
+        toolbarCommands={[[]]}
+        generateMarkdownPreview={generateMarkdownPreview}
       />
     </div>
   )
