@@ -65,7 +65,8 @@
         align-items: center;
         img {
             width: 100%;
-            height: auto;
+            height: 65%;
+            object-fit: cover;
         }
     }
 }
