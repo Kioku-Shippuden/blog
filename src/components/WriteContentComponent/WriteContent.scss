@@ -4,9 +4,9 @@
     height: 85%;
     .react-mde {
         margin-top: 2%;
+        border: none;
         .mde-header {
             background: none;
-            border-top: 1px solid #c8ccd0;
             border-bottom: 1px solid #c8ccd0;
             .mde-tabs {
                 button {
@@ -26,58 +26,104 @@
         .mde-textarea-wrapper {            
             height: 65vh;
             font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+            display: flex;
+            justify-content: center;
             .mde-text {
+                width: 55vw;
                 padding: 20px;
                 height: 100% !important;
-                font-size: 30px !important;
+                font-size: 25px !important;
             }
             .mde-text:focus {
                 outline: none;
             }
         }
         .mde-preview {
-            height: 75vh;
             padding: 20px;
-            text-align: start;
-            word-break: break-word;
-            word-spacing: 0.2rem;
-            font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+            display: flex;
+            height: 75vh;
+            justify-content: center;
+            .mde-preview-content {
+                width: 50vw;
+                // Normal Body Composent
+                // Text
+                p {
+                    margin-top: 2em;
+                    margin-bottom: -0.46em;
+                    font-size: 20px;
+                    font-weight: 400;
+                    line-height: 32px;
+                    letter-spacing: -0.003em;
+                    color: #242424;
+                    word-break: break-word;
+                    font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif !important;
+                }
+                // Code
+                pre {
+                    margin: 2em 0;
+                }
+                // Title Component
+                .title-component {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    p {
+                        margin-top: 1.19em;
+                        margin-bottom: -0.27em;
+                        color: #242424;
+                        font-size: 42px;
+                        font-weight: 700;
+                        line-height: 52px;
+                        letter-spacing: -0.011em;
+                        font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+                    }
+                }
+                // Image Component
+                .image-component {
+                    display: flex;
+                    flex-direction: column;
+                    max-width: 100%;
+                    margin-top: 1.19em;
+                    vertical-align: middle;
+                    background-color: rgba(255, 255, 255, 1);
+                    p {
+                        width: 100%;
+                        margin-top: 10px;
+                        font-size: 14px;
+                        font-weight: 400;
+                        line-height: 20px;
+                        word-wrap: break-word;
+                        word-break: break-word;
+                        font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                        display: flex;
+                        justify-content: center;
+                    }
+                    img {
+                        max-width: 100%;
+                    }
+                    .image-small {
+                        width: 50%;
+                        height: auto;
+                    }
+                    .image-medium {
+                        width: 75%;
+                        height: auto;
+                    }
+                    .image-large {
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+                .image-positions-left {
+                    justify-content: left;
+                }
+                .image-positions-right {
+                    justify-content: right;
+                }
+                .image-positions-center {
+                    justify-content: center;
+                }
+            }
         }
-    }
-    .title-component {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 30px;
-        font-weight: 700;
-    }
-    .image-component {
-        display: flex;
-        max-width: 100%;
-        margin: 10px 0;
-        img {
-            max-width: 100%;
-        }
-        .image-small {
-            width: 30%;
-            height: auto;
-        }
-        .image-medium {
-            width: 50%;
-            height: auto;
-        }
-        .image-large {
-            width: 75%;
-            height: auto;
-        }
-    }
-    .image-positions-left {
-        justify-content: left;
-    }
-    .image-positions-right {
-        justify-content: right;
-    }
-    .image-positions-center {
-        justify-content: center;
     }
 }

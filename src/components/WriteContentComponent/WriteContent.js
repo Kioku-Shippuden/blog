@@ -23,18 +23,18 @@ import './WriteContent.scss';
 const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
   position: 'absolute',
   '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
+    bottom: theme.spacing(1),
+    right: theme.spacing(1),
   },
   '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
     top: theme.spacing(2),
-    left: theme.spacing(2),
+    left: theme.spacing(1),
   },
 }));
 
 function WriteContent(props) {
+  const {value, setValue} = props;
   const fileInputRef = useRef(null);
-  const [value, setValue] = useState("");
   const [openToolbox, setOpenToolBox] = useState(true);
   const [selectedTab, setSelectedTab] = useState("write");
   const converter = new showdown.Converter();
@@ -58,12 +58,15 @@ function WriteContent(props) {
       .replace(imageRegex, (match, src, attributes) => {
         const sizeMatch = attributes.match(/size=([a-zA-Z]+)/);
         const positionMatch = attributes.match(/position=([a-zA-Z]+)/);
+        const titleMatch = attributes.match(/title='([a-zA-Z]+)'/);
 
         const customSize = sizeMatch ? `image-${sizeMatch[1]}` : '';
         const customPosition = positionMatch ? `image-positions-${positionMatch[1]}` : '';
+        const customTitle = titleMatch ? `${titleMatch[1]}` : '';
   
         return `<div class='image-component ${customPosition}'>
           <img src="${src}" alt="Image" class=" ${customSize}">
+          <p class=" ${customSize}">${customTitle}</p>
         </div>`
       });
   
@@ -93,7 +96,7 @@ function WriteContent(props) {
   }
 
   const generateImage = (linkImage) => {
-    const imageMarkdown = `![image](${linkImage}){position=center size=medium}`;
+    const imageMarkdown = `![image](${linkImage}){position=center size=medium title=''}`;
     const updatedMarkdown = `${value}\n\n${imageMarkdown}`;
     setValue(updatedMarkdown);
   };

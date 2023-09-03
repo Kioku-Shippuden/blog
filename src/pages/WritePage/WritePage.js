@@ -19,7 +19,7 @@ function WritePage() {
         showProfilePopup={showProfilePopup}
         setShowProfilePopup={setShowProfilePopup}
       />
-      <WriteContent contentPost={contentPost} setContentPost={setContentPost}/>
+      <WriteContent value={contentPost} setValue={setContentPost}/>
       {
         showPublishPopup === true && 
         <PublishForm 

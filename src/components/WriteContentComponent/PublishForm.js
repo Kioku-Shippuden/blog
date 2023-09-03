@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react'
 import { callPostApiWithoutToken } from '../../helpers/request';
+import { useNavigate } from 'react-router';
 import './PublishForm.scss';
 
 
 function PublishForm(props) {
     const { contentPost, setShowPublishPopup } = props;
-
+    const navigate = useNavigate();
     const tagPostRef = useRef(null);
     const titlePostRef = useRef(null);
     const sumarizePostRef = useRef(null);
@@ -55,7 +56,7 @@ function PublishForm(props) {
     
         let contentId = await publishContent(title, tag, summarize, contentPost);
         await publishThumnail(contentId, thumbnail);
-        
+        navigate('/');
     }
 
     const publishContent = async (title, tag, summarize, contentPost) => {
