@@ -3,6 +3,7 @@ import Navigator from '../../components/NavigatorComponent/Navigator';
 import WriteContent from '../../components/WriteContentComponent/WriteContent';
 import ProfilePopup from '../../components/NavigatorComponent/ProfilePopup';
 import PublishForm from '../../components/WriteContentComponent/PublishForm';
+import NotificationPopup from '../../components/NavigatorComponent/NotificationPopup';
 import './WritePage.scss';
 
 function WritePage() {
@@ -10,6 +11,7 @@ function WritePage() {
   const [isPulish , setIsPublish] = useState(false);
   const [showPublishPopup, setShowPublishPopup] = useState(false);
   const [showProfilePopup, setShowProfilePopup] = useState(false);
+  const [showNotificationPopup, setShowNotificationPopup] = useState(false);
 
   return (
     <div className='write-page'>
@@ -17,7 +19,9 @@ function WritePage() {
         typePage={'WritePage'}
         setShowPublishPopup = {setShowPublishPopup}
         showProfilePopup={showProfilePopup}
+        showNotificationPopup={showNotificationPopup}
         setShowProfilePopup={setShowProfilePopup}
+        setShowNotificationPopup={setShowNotificationPopup}
       />
       <WriteContent value={contentPost} setValue={setContentPost}/>
       {
@@ -28,6 +32,10 @@ function WritePage() {
       {
         showProfilePopup === true &&
         <ProfilePopup />
+      }
+      {
+        showNotificationPopup === true &&
+        <NotificationPopup/>
       }
     </div>
   )

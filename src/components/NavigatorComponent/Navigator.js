@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import './style/Navigator.scss';
 
 function Navigator(props) {
-  const { typePage, setShowPublishPopup, showProfilePopup, setShowProfilePopup } = props;
+  const { typePage, setShowPublishPopup, showProfilePopup, showNotificationPopup, setShowProfilePopup, setShowNotificationPopup, currentAlert } = props;
 
   const navigate = useNavigate();
   
@@ -19,6 +19,16 @@ function Navigator(props) {
   }
   const navigateWritePage = () => {
     navigate('/new-story');
+  }
+
+  const onClickAlertBtn = () => {
+    setShowProfilePopup(false);
+    setShowNotificationPopup(!showNotificationPopup)
+  }
+
+  const onClickManageProfileBtn = () => {
+    setShowNotificationPopup(false)
+    setShowProfilePopup(!showProfilePopup)
   }
 
   return (
@@ -31,8 +41,8 @@ function Navigator(props) {
             <Search />
           </div>
           <CreateContent navigateWritePage={navigateWritePage}/>
-          <Alert />
-          <ManageProfile showProfilePopup={showProfilePopup} setShowProfilePopup={setShowProfilePopup}/>
+          <Alert currentAlert={currentAlert} onClickAlertBtn={onClickAlertBtn}/>
+          <ManageProfile onClickManageProfileBtn={onClickManageProfileBtn}/>
         </Fragment>
       }
       {
@@ -43,8 +53,8 @@ function Navigator(props) {
             <SaveCachePost />
           </div>
           <PublishPost setShowPublishPopup={setShowPublishPopup}/>
-          <Alert />
-          <ManageProfile showProfilePopup={showProfilePopup} setShowProfilePopup={setShowProfilePopup}/>
+          <Alert onClickAlertBtn={onClickAlertBtn}/>
+          <ManageProfile onClickManageProfileBtn={onClickManageProfileBtn}/>
         </Fragment>
       }
     </div>

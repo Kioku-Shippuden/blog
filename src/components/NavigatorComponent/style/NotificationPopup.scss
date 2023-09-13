@@ -1,0 +1,54 @@
+.notification-popup {
+    position: absolute;
+    top: 9%;
+    right: 20px;
+    width: 280px;
+    border-radius: 10px;
+    background-color: white;
+    margin-bottom: 15px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    .notification-header {
+        padding: 15px 10px;
+        width: 100%;
+    }
+    .notification-body {
+        padding: 15px 10px;
+        width: 100%;
+        max-height: 80vh;
+        overflow: scroll;
+        .notification-element {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+            .image {
+                flex: 1 1 15%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                img {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                }
+            }
+            .information {
+                flex: 1 1 75%;
+                align-items: center;
+                font-family: 'Kalam', cursive;
+                .main-infor {
+                    font-size: 20px;
+                }
+                .sub-infor {
+                    font-size: 15px;
+                }
+            }
+        }
+        .notification-element:hover {
+            color: #ffffff;
+            border-radius: 20px;
+            background-color: #008001;
+        }
+    }
+}

@@ -1,9 +1,16 @@
 import React from 'react'
+import Badge from '@mui/material/Badge';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import './style/Alert.scss'
-function Alert() {
+
+function Alert(props) {
+  const {currentAlert, onClickAlertBtn} = props;
+
   return (
-    <div className='alert-component content-text'>
-      <i className='fal fa-bell'></i>
+    <div className='alert-component content-text' onClick={onClickAlertBtn}>
+      <Badge color="success" badgeContent={currentAlert} max={10} >
+        <NotificationsNoneIcon />
+      </Badge>
     </div>
   )
 }

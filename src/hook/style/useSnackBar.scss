@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+  
+.infomation-component {
+    font-family: 'Kalam', cursive;
+    color: #000000;
+    .infor-title {
+        font-weight: 700;
+        font-size: 20px;
+        margin: 5px 0px;
+    }
+    .infor-body {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        .image {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            img {
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+            }
+        }
+        .message {
+            font-weight: 300;
+            font-size: 15px;
+        }
+    }
+}
