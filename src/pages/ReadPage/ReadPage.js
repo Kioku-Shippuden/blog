@@ -9,7 +9,6 @@ function ReadPage() {
   const [showProfilePopup, setShowProfilePopup] = useState(false);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
 
-
   return (
     <div className='read-page'>
       <Navigator 

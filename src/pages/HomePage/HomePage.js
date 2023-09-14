@@ -1,17 +1,18 @@
-import React, {useEffect, useState} from 'react'
+import io from 'socket.io-client';
+import React, {useState} from 'react'
+import { useSnackbar } from 'notistack';
+import { useAlert } from '../../hook/useAlert';
+import useUserProfile from '../../hook/useUserProfile';
 import Body from '../../components/BodyComponent/Body';
+import SnackbarContent from '../../hook/useSnackbarContent';
 import Navigator from '../../components/NavigatorComponent/Navigator';
 import ProfilePopup from '../../components/NavigatorComponent/ProfilePopup';
-import useUserProfile from '../../hook/useUserProfile';
-import SnackbarContent from '../../hook/useSnackbarContent';
 import NotificationPopup from '../../components/NavigatorComponent/NotificationPopup';
-import { useSnackbar } from 'notistack';
-import io from 'socket.io-client';
 import './HomePage.scss';
 
 function HomePage() {
   const { enqueueSnackbar } = useSnackbar();
-  const [currentAlert, setCurrentAlert] = useState(0);
+  const { setAlertState } = useAlert();
   const [showProfilePopup, setShowProfilePopup] = useState(false);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
 
@@ -28,7 +29,7 @@ function HomePage() {
   });
 
   socket.on('friendRequest', (data) => {
-    setCurrentAlert((prev) => prev + 1);
+    setAlertState((prev) => prev + 1);
     enqueueSnackbar(
       <SnackbarContent message={data.notifyMessage} />, 
       {
@@ -56,7 +57,6 @@ function HomePage() {
         showNotificationPopup={showNotificationPopup}
         setShowProfilePopup={setShowProfilePopup}
         setShowNotificationPopup={setShowNotificationPopup}
-        currentAlert={currentAlert}
       />
       <Body />
       {

@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import { AlertProvider } from './hook/useAlert';
 import { AuthProvider } from './hook/useAuthentication';
 import HomePage from '../src/pages/HomePage/HomePage';
 import ReadPage from '../src/pages/ReadPage/ReadPage';
@@ -14,16 +15,18 @@ function App() {
   return (
     <div className="App">
       <AuthProvider>
-        <Routes>
-          <Route element={<ProtectedRoutes />}>
-            <Route path='/' element={<HomePage />}></Route>
-            <Route path='/read-story/:post_id' element={<ReadPage />}></Route>
-            <Route path='/new-story' element={<WritePage />}></Route>
-          </Route>
-          <Route path='/sign_in' element={<SignInPage />}></Route>
-          <Route path='/sign_up' element={<SignUpPage />}></Route>
-          <Route path='/reset_password' element={<ResetPasswordPage />}></Route>
-        </Routes>
+        <AlertProvider>
+          <Routes>
+            <Route element={<ProtectedRoutes />}>
+              <Route path='/' element={<HomePage />}></Route>
+              <Route path='/read-story/:post_id' element={<ReadPage />}></Route>
+              <Route path='/new-story' element={<WritePage />}></Route>
+            </Route>
+            <Route path='/sign_in' element={<SignInPage />}></Route>
+            <Route path='/sign_up' element={<SignUpPage />}></Route>
+            <Route path='/reset_password' element={<ResetPasswordPage />}></Route>
+          </Routes>
+        </AlertProvider>
       </AuthProvider>
     </div>
   );

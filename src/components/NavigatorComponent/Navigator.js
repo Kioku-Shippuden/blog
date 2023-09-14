@@ -7,10 +7,11 @@ import SaveCachePost from './SaveCachePost';
 import CreateContent from './CreateContent';
 import ManageProfile  from './ManageProfile';
 import { useNavigate } from 'react-router-dom';
+import { useAlert } from '../../hook/useAlert';
 import './style/Navigator.scss';
 
 function Navigator(props) {
-  const { typePage, setShowPublishPopup, showProfilePopup, showNotificationPopup, setShowProfilePopup, setShowNotificationPopup, currentAlert } = props;
+  const { typePage, setShowPublishPopup, showProfilePopup, showNotificationPopup, setShowProfilePopup, setShowNotificationPopup } = props;
 
   const navigate = useNavigate();
   
@@ -31,6 +32,11 @@ function Navigator(props) {
     setShowProfilePopup(!showProfilePopup)
   }
 
+  const turnOffPopup = () => {
+    setShowProfilePopup(false)
+    setShowNotificationPopup(false)
+  }
+
   return (
     <div className='navigator-component'>
       {
@@ -41,7 +47,7 @@ function Navigator(props) {
             <Search />
           </div>
           <CreateContent navigateWritePage={navigateWritePage}/>
-          <Alert currentAlert={currentAlert} onClickAlertBtn={onClickAlertBtn}/>
+          <Alert onClickAlertBtn={onClickAlertBtn}/>
           <ManageProfile onClickManageProfileBtn={onClickManageProfileBtn}/>
         </Fragment>
       }
@@ -52,7 +58,7 @@ function Navigator(props) {
             <Logo navigateHome={navigateHome}/>
             <SaveCachePost />
           </div>
-          <PublishPost setShowPublishPopup={setShowPublishPopup}/>
+          <PublishPost setShowPublishPopup={setShowPublishPopup} turnOffPopup={turnOffPopup}/>
           <Alert onClickAlertBtn={onClickAlertBtn}/>
           <ManageProfile onClickManageProfileBtn={onClickManageProfileBtn}/>
         </Fragment>
