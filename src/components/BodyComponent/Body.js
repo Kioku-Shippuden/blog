@@ -25,8 +25,8 @@ function Body() {
         <TopicSlide />
         {
           postData.length > 0 &&
-          postData.map((data) => {
-            return (<ContentList data={data}/>)
+          postData.map((data, index) => {
+            return (<ContentList key={index} data={data}/>)
           })
         }
       </div>

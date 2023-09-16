@@ -19,16 +19,7 @@ function HomePage() {
   const userProfile = useUserProfile();
   const userId = userProfile?.userId;
 
-  const socket = io.connect('http://localhost:3002', {
-    transports: ['websocket'],
-    query: { userId }
-  });
-
-  socket.on('connect', () => {
-    console.log('Connected to WebSocket server');
-  });
-
-  socket.on('friendRequest', (data) => {
+  const handleFriendNotification = (data) => {
     setAlertState((prev) => prev + 1);
 
     const updatedNotification = [data, ...notificationState];
@@ -43,7 +34,24 @@ function HomePage() {
         },
       }
     );
+  }
+
+  const socket = io.connect('http://localhost:3002', {
+    transports: ['websocket'],
+    query: { userId }
   });
+
+  socket.on('connect', () => {
+    console.log('Connected to WebSocket server');
+  });
+
+  socket.on('friendRequest', (data) => {
+    handleFriendNotification(data);
+  });
+
+  socket.on('acceptedRequest', (data) => {
+    handleFriendNotification(data);
+  })
 
   socket.on('connect_error', (error) => {
     console.error('Connection error:', error);
