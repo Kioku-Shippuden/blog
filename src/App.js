@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <AuthProvider>
-        <AlertProvider>
+        <AlertProvider >
           <Routes>
             <Route element={<ProtectedRoutes />}>
               <Route path='/' element={<HomePage />}></Route>

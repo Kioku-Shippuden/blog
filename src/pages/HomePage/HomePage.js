@@ -12,7 +12,7 @@ import './HomePage.scss';
 
 function HomePage() {
   const { enqueueSnackbar } = useSnackbar();
-  const { setAlertState } = useAlert();
+  const { setAlertState, setNotificationState, notificationState } = useAlert();
   const [showProfilePopup, setShowProfilePopup] = useState(false);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
 
@@ -30,6 +30,10 @@ function HomePage() {
 
   socket.on('friendRequest', (data) => {
     setAlertState((prev) => prev + 1);
+
+    const updatedNotification = [data, ...notificationState];
+    setNotificationState(updatedNotification);
+
     enqueueSnackbar(
       <SnackbarContent message={data.notifyMessage} />, 
       {
