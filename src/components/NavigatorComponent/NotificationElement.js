@@ -1,6 +1,8 @@
 import React from 'react'
 import { callPostApiWithoutToken } from '../../helpers/request';
 
+const apiDomain = process.env.REACT_APP_API_DOMAIN
+
 function NotificationElement(props) {
     const {data} = props;
 
@@ -37,7 +39,7 @@ function NotificationElement(props) {
     const answereRequest = async (data, option) => {
         const senderId = data.sender.userId
         try {
-            const apiUrl = `http://localhost:3000/v1/api/user/answere_request/${senderId}?ans=${option}`;
+            const apiUrl = `${apiDomain}/v1/api/user/answere_request/${senderId}?ans=${option}`;
             await callPostApiWithoutToken(apiUrl);
         } catch (err) {
             console.log(err);

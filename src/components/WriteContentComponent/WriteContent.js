@@ -20,6 +20,8 @@ import "react-mde/lib/styles/css/react-mde-all.css";
 import 'react-quill/dist/quill.snow.css'
 import './WriteContent.scss';
 
+const apiDomain = process.env.REACT_APP_API_DOMAIN
+
 const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
   position: 'absolute',
   '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
@@ -35,7 +37,6 @@ const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
 function WriteContent(props) {
   const {value, setValue} = props;
   const fileInputRef = useRef(null);
-  const [openToolbox, setOpenToolBox] = useState(true);
   const [selectedTab, setSelectedTab] = useState("write");
   const converter = new showdown.Converter();
   
@@ -86,7 +87,7 @@ function WriteContent(props) {
       const formData = new FormData();
       formData.append('image', file);
       try {
-        const apiUrl = 'http://localhost:3000/v1/api/upload/image?topic=content';
+        const apiUrl = `${apiDomain}/v1/api/upload/image?topic=content`;
         const res = await callPostApiWithoutToken(apiUrl, formData);
         generateImage(res.metaData);
       } catch (err) {

@@ -3,6 +3,9 @@ import { useParams } from 'react-router-dom'
 import { callGetApiWithoutToken } from '../../helpers/request';
 import showdown from 'showdown';
 import './ReadContent.scss'
+
+const apiDomain = process.env.REACT_APP_API_DOMAIN
+
 function ReadContent() {
     const params = useParams();
     const converter = new showdown.Converter();
@@ -42,7 +45,7 @@ function ReadContent() {
 
     const getContent = async () => {
         try {
-            const apiUrl = 'http://localhost:3000/v1/api/post/read/' + params.post_id;
+            const apiUrl = `${apiDomain}/v1/api/post/read/${params.post_id}`;
             const reponse = await callGetApiWithoutToken(apiUrl);
             const contentPost = await handleReadMarkdown(reponse.metaData.content);
             setContent(contentPost);

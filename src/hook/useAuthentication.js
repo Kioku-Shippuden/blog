@@ -2,6 +2,8 @@ import { createContext, useState, useEffect, useContext } from "react";
 import { callGetApiWithoutToken, callPostApiWithoutToken } from "../helpers/request";
 import { useNavigate } from "react-router-dom";
 
+const apiDomain = process.env.REACT_APP_API_DOMAIN
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
@@ -17,7 +19,7 @@ export const AuthProvider = ({children}) => {
         setLoading(true);
 
         try {
-            const apiUrl = 'http://localhost:3000/v1/api/auth/login';
+            const apiUrl = `${apiDomain}/v1/api/auth/login`;
 			await callPostApiWithoutToken(apiUrl, {
 				"username": userInfo.userName,
 				"password": userInfo.userPass,
@@ -35,7 +37,7 @@ export const AuthProvider = ({children}) => {
         setLoading(true);
 
         try {
-            const apiUrl = 'http://localhost:3000/v1/api/auth/signup';
+            const apiUrl = `${apiDomain}/v1/api/auth/signup`;
             await callPostApiWithoutToken(apiUrl, {
                 "username": userInfo.userName,
                 "email"   : userInfo.userEmail,
@@ -52,7 +54,7 @@ export const AuthProvider = ({children}) => {
 
     const logoutUser = async () => {
         try {
-			const apiUrl = 'http://localhost:3000/v1/api/auth/logout';
+			const apiUrl = `${apiDomain}/v1/api/auth/logout`;
 			await callPostApiWithoutToken(apiUrl);
       		navigate('/sign_in');
             setIsAuthen(false);
@@ -63,7 +65,7 @@ export const AuthProvider = ({children}) => {
 
     const checkUserStatus = async () => {
         try {
-            const apiUrl = 'http://localhost:3000/v1/api/auth/ping';
+            const apiUrl = `${apiDomain}/v1/api/auth/ping`;
             await callGetApiWithoutToken(apiUrl);
             setIsAuthen(true);
         } catch {

@@ -3,6 +3,7 @@ import { callPostApiWithoutToken } from '../../helpers/request';
 import { useNavigate } from 'react-router';
 import './PublishForm.scss';
 
+const apiDomain = process.env.REACT_APP_API_DOMAIN
 
 function PublishForm(props) {
     const { contentPost, setShowPublishPopup } = props;
@@ -61,7 +62,7 @@ function PublishForm(props) {
 
     const publishContent = async (title, tag, summarize, contentPost) => {
         try {
-            const apiUrl = 'http://localhost:3000/v1/api/post/publish';
+            const apiUrl = `${apiDomain}/v1/api/post/publish`;
             const reponse = await callPostApiWithoutToken(apiUrl, {
                 "postTitle": title,
                 "postStatus": "publish",
@@ -81,7 +82,7 @@ function PublishForm(props) {
         formData.append('image', thumbnail);
 
         try {
-            const apiUrl = 'http://localhost:3000/v1/api/upload/image?topic=thumnail&postId=' + contentId;
+            const apiUrl = `${apiDomain}/v1/api/upload/image?topic=thumnail&postId=${contentId}`;
             await callPostApiWithoutToken(apiUrl, formData)
         } catch (err) {
             throw(err);

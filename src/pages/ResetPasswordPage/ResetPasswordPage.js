@@ -5,6 +5,8 @@ import './ResetPasswordPage.scss';
 import validator from 'validator';
 import Backgound from '../../components/BackgroundComponent/Backgound';
 
+const apiDomain = process.env.REACT_APP_API_DOMAIN
+
 function ResetPasswordPage() {
   const idRef = useRef(null);
   const passRef = useRef(null);
@@ -50,7 +52,7 @@ function ResetPasswordPage() {
     }
 
 		try {
-			const apiUrl = 'http://localhost:3000/v1/api/auth/forgot-password';
+			const apiUrl = `${apiDomain}/v1/api/auth/forgot-password`;
 			const reponse = await callPostApiWithoutToken(apiUrl, {
 				"email": emailRef.current.value
 			});
@@ -66,7 +68,7 @@ function ResetPasswordPage() {
   const onCheckCode = async () => {
     setCodeCheckError(true);
 		try {
-			const apiUrl = 'http://localhost:3000/v1/api/auth/forgot-password/' + idRef.current.value;
+			const apiUrl = `${apiDomain}/v1/api/auth/forgot-password/${idRef.current.value}`;
 			const reponse = await callPostApiWithoutToken(apiUrl);
 
       if (reponse.status === 200) {
@@ -83,7 +85,7 @@ function ResetPasswordPage() {
       setpassCheckError(true);
     }
 		try {
-			const apiUrl = 'http://localhost:3000/v1/api/auth/reset-password';
+			const apiUrl = `${apiDomain}/v1/api/auth/reset-password`;
 			const reponse = await callPostApiWithoutToken(apiUrl, {
         "newPassword": passRef.current.value,
         "confirmPassword": repassRef.current.value

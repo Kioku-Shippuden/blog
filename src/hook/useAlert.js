@@ -6,6 +6,9 @@ import { useAuth } from './useAuthentication';
 import SnackbarContent from './useSnackbarContent';
 import { callGetApiWithoutToken } from '../helpers/request';
 
+const apiDomain = process.env.REACT_APP_API_DOMAIN
+const socketDomain = process.env.REACT_APP_SOCKET_DOMAIN
+
 const AlertContext = createContext();
 
 export function useAlert() {
@@ -22,7 +25,7 @@ export function AlertProvider({ children }) {
   const userId = userProfile?.userId;
 
   // Handle Connect Socket
-  const socket = io.connect('http://localhost:3002', {
+  const socket = io.connect(socketDomain, {
     transports: ['websocket'],
     query: { userId }
   });
@@ -69,7 +72,7 @@ export function AlertProvider({ children }) {
   const getAllNotification = async () => {
     if (!isAuthen) return;
     
-    const apiUrl = 'http://localhost:3000/v1/api/user/notifies';
+    const apiUrl = `${apiDomain}/v1/api/user/notifies`;
     const reponse = await callGetApiWithoutToken(apiUrl);
     setAlertState(reponse.metaData.data.data.length);
     setNotificationState(reponse.metaData.data.data);

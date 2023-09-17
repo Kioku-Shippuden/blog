@@ -6,11 +6,13 @@ import RecommendFollower from './RecommendFollower';
 import { callGetApiWithoutToken } from '../../helpers/request';
 import './style/Body.scss'
 
+const apiDomain = process.env.REACT_APP_API_DOMAIN
+
 function Body() {
   const [postData, setPostData] = useState([]);
 
   const getAllPost = async () => {
-    const apiUrl = 'http://localhost:3000/v1/api/post/allPost';
+    const apiUrl = `${apiDomain}/v1/api/post/allPost`;
     const reponse = await callGetApiWithoutToken(apiUrl);
     setPostData(reponse.metaData.listPost);
   }
