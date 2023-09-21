@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import ProFile from '../../components/ProfileComponent/ProFile';
 import Navigator from '../../components/NavigatorComponent/Navigator';
 import ReadContent from '../../components/ReadContentComponent/ReadContent';
 import ProfilePopup from '../../components/NavigatorComponent/ProfilePopup';
@@ -6,6 +7,7 @@ import NotificationPopup from '../../components/NavigatorComponent/NotificationP
 import './ReadPage.scss';
 
 function ReadPage() {
+  const [showEditProfile, setShowEditProfile] = useState(false)
   const [showProfilePopup, setShowProfilePopup] = useState(false);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
 
@@ -20,12 +22,21 @@ function ReadPage() {
       />
       <ReadContent />
       {
-        showProfilePopup === true &&
-        <ProfilePopup />
+        showProfilePopup === true && showEditProfile === false &&
+        <ProfilePopup 
+          showEditProfile={showEditProfile}
+          setShowEditProfile={setShowEditProfile}
+        />
       }
       {
         showNotificationPopup === true &&
         <NotificationPopup/>
+      }
+      {
+        showEditProfile === true &&
+        <ProFile
+          setShowEditProfile={setShowEditProfile}
+        />
       }
     </div>
   )

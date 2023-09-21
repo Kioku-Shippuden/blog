@@ -1,0 +1,153 @@
+.profile-component {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50vw;
+    border-radius: 10px;
+    background-color: white;
+    transform: translate(-50%, -50%);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10px;
+        .close-btn {
+            cursor: pointer;
+        }
+    }
+    .image-update {
+        padding: 10px;
+        width: 100%;
+        .title-component {
+            margin: 5px 0;
+        }
+        .image-update-component {
+            display: flex;
+            align-items: center;
+            .image{
+                flex: 1 1 15%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                border: 1px solid #000000;
+                padding: 5px;
+                img{
+                    width: 75px;
+                    height: 75px;
+                    border-radius: 50%;
+                }
+            }
+            .infor-group{
+                padding-left: 30px;
+                width: 100%;
+                flex: 1 1 85%;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                .btn-groups{
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    gap: 20px;
+                    .update-btn {
+                        color: green;
+                        cursor: pointer;
+                    }
+                    .remove-btn {
+                        color: red;
+                        cursor: pointer;
+                    }
+                }
+                .notes{
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                }
+            }
+        }
+    }
+    .name-update {
+        padding: 20px 10px;
+        width: 100%;
+        .title-component {
+            margin: 5px 0;
+        }
+        .text-update-component{
+            border-bottom: 1px solid #000000;
+            input {
+                width: 100%;
+                border: none;
+                font-size: 18px;
+                padding: 5px 10px;
+                font-family: 'Kalam', cursive;
+            }
+        }
+        .err-border {
+            border-bottom: 1px solid red !important;
+            input {
+                width: 100%;
+                border: none;
+                font-size: 18px;
+                padding: 5px 10px;
+                font-family: 'Kalam', cursive;
+            }
+        }
+    }
+    .bio-update {
+        padding: 20px 10px;
+        width: 100%;
+        .title-component {
+            margin: 5px 0;
+        }
+        .text-update-component{
+            border-bottom: 1px solid #000000;
+            input {
+                width: 100%;
+                border: none;
+                font-size: 18px;
+                padding: 5px 10px;
+                font-family: 'Kalam', cursive;
+            }
+        }
+    }
+    .footer {
+        width: 100%;
+        padding: 20px 10px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 20px;
+        .btn {
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            opacity: 0.7;
+        }
+        .cancel-btn {
+            background-color: #ffffff;
+            border: 1px solid green;
+            color: green !important;
+        }
+        .save-btn {
+            background-color: green;
+            color: #ffffff !important;
+        }
+    }
+    .err {
+        color: red;
+        margin-top: 5px;
+        margin-left: 40%;
+    }
+}

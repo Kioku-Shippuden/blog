@@ -2,17 +2,21 @@ import React from 'react';
 import { useAuth } from '../../hook/useAuthentication';
 import './style/ProfilePopup.scss';
 
-function ProfilePopup() {
+function ProfilePopup(props) {
+    const { showEditProfile, setShowEditProfile } = props
     const {logoutUser} = useAuth();
 
     const onSubmit = async () => {
 		logoutUser();
 	}
 
+    const onEditProfile = () => {
+        setShowEditProfile(!showEditProfile);
+    }
     return (
         <div className='manage-profile'>
             {/* Profile */}
-            <div className='group-options content-text'>
+            <div className='group-options content-text' onClick={onEditProfile}>
                 <div className='icon'>
                     <i class="far fa-user"></i>
                 </div>

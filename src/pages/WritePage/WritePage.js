@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
+import ProFile from '../../components/ProfileComponent/ProFile';
 import Navigator from '../../components/NavigatorComponent/Navigator';
-import WriteContent from '../../components/WriteContentComponent/WriteContent';
 import ProfilePopup from '../../components/NavigatorComponent/ProfilePopup';
 import PublishForm from '../../components/WriteContentComponent/PublishForm';
+import WriteContent from '../../components/WriteContentComponent/WriteContent';
 import NotificationPopup from '../../components/NavigatorComponent/NotificationPopup';
 import './WritePage.scss';
 
 function WritePage() {
   const [contentPost, setContentPost] = useState('');
-  const [isPulish , setIsPublish] = useState(false);
+  const [showEditProfile, setShowEditProfile] = useState(false)
   const [showPublishPopup, setShowPublishPopup] = useState(false);
   const [showProfilePopup, setShowProfilePopup] = useState(false);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
@@ -25,17 +26,26 @@ function WritePage() {
       />
       <WriteContent value={contentPost} setValue={setContentPost}/>
       {
-        showPublishPopup === true && 
+        showPublishPopup === true && showEditProfile === false && 
         <PublishForm 
           contentPost={contentPost} setShowPublishPopup={setShowPublishPopup}/>
       }
       {
-        showProfilePopup === true &&
-        <ProfilePopup />
+        showProfilePopup === true && showEditProfile === false &&
+        <ProfilePopup 
+          showEditProfile={showEditProfile}
+          setShowEditProfile={setShowEditProfile}
+        />
       }
       {
         showNotificationPopup === true &&
         <NotificationPopup/>
+      }
+      {
+        showEditProfile === true &&
+        <ProFile
+          setShowEditProfile={setShowEditProfile}
+        />
       }
     </div>
   )

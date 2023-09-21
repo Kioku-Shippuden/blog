@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import Body from '../../components/BodyComponent/Body';
+import ProFile from '../../components/ProfileComponent/ProFile';
 import Navigator from '../../components/NavigatorComponent/Navigator';
 import ProfilePopup from '../../components/NavigatorComponent/ProfilePopup';
 import NotificationPopup from '../../components/NavigatorComponent/NotificationPopup';
 import './HomePage.scss';
 
 function HomePage() {
+  const [showEditProfile, setShowEditProfile] = useState(false)
   const [showProfilePopup, setShowProfilePopup] = useState(false);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
 
@@ -20,12 +22,21 @@ function HomePage() {
       />
       <Body />
       {
-        showProfilePopup === true &&
-        <ProfilePopup />
+        showProfilePopup === true && showEditProfile === false && 
+        <ProfilePopup 
+          showEditProfile={showEditProfile}
+          setShowEditProfile={setShowEditProfile}
+        />
       }
       {
         showNotificationPopup === true &&
         <NotificationPopup/>
+      }
+      {
+        showEditProfile === true &&
+        <ProFile
+          setShowEditProfile={setShowEditProfile}
+        />
       }
     </div>
   )
