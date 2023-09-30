@@ -1,0 +1,19 @@
+.user-infor-pagination {
+    width: 80%;
+    display: flex;
+    margin-bottom: 40px;
+    align-items: center;
+    justify-content: flex-start;
+    // font-family: 'Kalam', cursive;
+    border-bottom: 1px solid rgba(117, 117, 117, 0.2);
+    gap: 20px;
+    .pagination-element {
+      padding: 20px 10px;
+      cursor: pointer;
+    }
+    .active {
+      border-bottom: 1px solid rgba(117, 117, 117);
+    }
+    
+  }
+  

@@ -9,7 +9,6 @@ import './WritePage.scss';
 
 function WritePage() {
   const [contentPost, setContentPost] = useState('');
-  const [showEditProfile, setShowEditProfile] = useState(false)
   const [showPublishPopup, setShowPublishPopup] = useState(false);
   const [showProfilePopup, setShowProfilePopup] = useState(false);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
@@ -26,26 +25,17 @@ function WritePage() {
       />
       <WriteContent value={contentPost} setValue={setContentPost}/>
       {
-        showPublishPopup === true && showEditProfile === false && 
+        showPublishPopup === true && 
         <PublishForm 
           contentPost={contentPost} setShowPublishPopup={setShowPublishPopup}/>
       }
       {
-        showProfilePopup === true && showEditProfile === false &&
-        <ProfilePopup 
-          showEditProfile={showEditProfile}
-          setShowEditProfile={setShowEditProfile}
-        />
+        showProfilePopup === true &&
+        <ProfilePopup />
       }
       {
         showNotificationPopup === true &&
         <NotificationPopup/>
-      }
-      {
-        showEditProfile === true &&
-        <ProFile
-          setShowEditProfile={setShowEditProfile}
-        />
       }
     </div>
   )

@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { AlertProvider } from './hook/useAlert';
+import UserPage from './pages/UserPage/UserPage';
 import { AuthProvider } from './hook/useAuthentication';
 import HomePage from '../src/pages/HomePage/HomePage';
 import ReadPage from '../src/pages/ReadPage/ReadPage';
@@ -19,6 +20,7 @@ function App() {
           <Routes>
             <Route element={<ProtectedRoutes />}>
               <Route path='/' element={<HomePage />}></Route>
+              <Route path='/user-page/:user_id' element={<UserPage />}></Route>
               <Route path='/read-story/:post_id' element={<ReadPage />}></Route>
               <Route path='/new-story' element={<WritePage />}></Route>
             </Route>

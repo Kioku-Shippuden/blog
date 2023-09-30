@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+@import '../../components/NavigatorComponent/style/Navigator.scss',
+    '../../components/BodyComponent/style/Body.scss';
+
+.user-page {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+}

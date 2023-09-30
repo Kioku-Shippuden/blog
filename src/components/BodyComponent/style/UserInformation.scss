@@ -1,0 +1,27 @@
+.user-information-component {
+    padding: 10% 0;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    .avatar-component{
+        margin: 20px 0;
+        width: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+        border-radius: 50%;
+        border: 1px solid #000000;
+        background-color: #ffffff;
+        img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+        }
+    }
+    .btn{
+        margin-top: 20px;
+        cursor: pointer;
+        color: #2f7c31 !important;
+    }
+}

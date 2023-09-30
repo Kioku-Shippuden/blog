@@ -41,7 +41,9 @@ function ContentList(props) {
           <div className='information-content'>
             <div className='author-content'>
               <img src={postInfo.userAvatar} alt='' />
-              <span className='title-text'>Kioku</span>
+              <span className='title-text'>
+                {postInfo.userName}
+              </span>
             </div>
             <div className='sub-title-text' onClick={() => {navigateHome(postInfo.postId)}}>
               {postInfo.postTitle}

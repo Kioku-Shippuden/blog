@@ -74,6 +74,19 @@ export const callPutApi = (key, api, body) => {
   })
 }
 
+export const callPutApiWithoutToken = (api, body) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await axios.put(api, body, {
+        withCredentials: true
+      });
+      resolve(res.data)
+    } catch (err) {
+      reject(null)
+    }
+  })
+}
+
 export const callGetApi = (key, api) => {
   return new Promise(async (resolve, reject) => {
     try {

@@ -1,20 +1,25 @@
-import React, { useRef, useState} from 'react'
+import React, { useEffect, useRef, useState} from 'react'
 import useUserProfile from '../../hook/useUserProfile';
+import { callPutApiWithoutToken, callPostApiWithoutToken } from '../../helpers/request';
 import './style/Profile.scss'
+
+const apiDomain = process.env.REACT_APP_API_DOMAIN
 
 function ProFile(props) {
     const { setShowEditProfile } = props;
-    const useNameRef = useRef(null);
     const useProfile = useUserProfile();
-    const temp = useProfile?.userName
-    const [currenUserName, setCurrentUserName] = useState(temp)
+    const [displayError, setDisplayError] = useState(false)
+    const [currentAvatar, setCurrentAvatar] = useState(null)
+    const [currenUserName, setCurrentUserName] = useState(null)
+    const [currentBio, setCurrentBio] = useState(null)
 
     const updateUserName = (event) => {
         setCurrentUserName(event.target.value);
     }
-    const [displayError, setDisplayError] = useState({
-		username: false,
-	})
+
+    const updateBio = (event) => {
+        setCurrentBio(event.target.value);
+    }
 
     const handleClosePanel = () => {
         setShowEditProfile(false);
@@ -24,18 +29,55 @@ function ProFile(props) {
 		const validated = {
 			userName: userName.length <= 0,
     	};
-  
     	return validated;
 	}
 
-    const onSaveProfile = () => {
-        const userName = useNameRef.current.value;
+    const onSaveProfile = async () => {
+        const userName = currenUserName;
 		const validated = validationForm(userName);
 		if(validated.userName) {
-			setDisplayError(validated)
-			return;
+			setDisplayError(validated.userName);
+            return;
 		}
+        await updateUserProfile(userName);
+        setShowEditProfile(false);
     }
+
+    const updateUserProfile = async(userName) => {
+        try {
+            const apiUrl = `${apiDomain}/v1/api/user/updateProfile`;
+			await callPutApiWithoutToken(apiUrl, {
+				"userName": userName
+			});
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const handleUpdateImage = async (event) => {
+        const file = event.target.files[0];
+
+        if (file) {
+            const formData = new FormData();
+            formData.append('image', file);
+            try {
+                const apiUrl = `${apiDomain}/v1/api/upload/image?topic=avatar`;
+                const res = await callPostApiWithoutToken(apiUrl, formData);
+                setCurrentAvatar(res.metaData)
+            } catch (err) {
+                console.log(err);
+            }
+
+            
+        }
+    }
+
+    useEffect(() => {
+        const username = useProfile?.userName
+        if (username) {
+            setCurrentUserName(username)
+        }
+    }, [useProfile])
 
     return (
         <div className='profile-component'>
@@ -53,11 +95,26 @@ function ProFile(props) {
                 </div>
                 <div className='image-update-component'>
                     <div className='image'>
-                        <img src='/account-logo.png' alt='' />
+                        {
+                            currentAvatar === null
+                            ?
+                            <img src='/account-logo.png' alt='' />
+                            :
+                            <img src={currentAvatar} alt='' />
+                        }
                     </div>
                     <div className='infor-group'>
                         <div className='btn-groups'>
-                            <div className='content-text update-btn'>Update</div>
+                        <label htmlFor='imageInput' className='content-text update-btn'>
+                            Update
+                            <input
+                            type='file'
+                            accept='image/*'
+                            style={{ display: 'none' }}
+                            id='imageInput'
+                            onChange={handleUpdateImage}
+                            />
+                        </label>
                             <div className='content-text remove-btn'>Remove</div>
                         </div>
                         <div className='content-text notes'>
@@ -73,17 +130,15 @@ function ProFile(props) {
                 <div className='text-update-component'>
                     <input 
                         type="text" 
-                        name="name" 
-                        ref={useNameRef} 
-                        readOnly={false}
+                        name="name"
                         onChange={updateUserName}
                         value={currenUserName} 
-                        className={displayError.username ? 'err-border' : 'qwe'}
+                        className={displayError ? 'err-border' : 'qwe'}
                     />
                 </div>
             </div>
             {
-                displayError.username &&
+                displayError &&
                 <div className='err'>Please enter your name.</div>	
             }
             <div className='bio-update'>
@@ -91,7 +146,12 @@ function ProFile(props) {
                 <p>Bio</p>
             </div>
                 <div className='text-update-component'>
-                    <input type="text" name="name"/>
+                    <input 
+                        type="text" 
+                        name="name"
+                        onChange={updateBio}
+                        value={currentBio} 
+                    />
                 </div>
             </div>
             <div className='footer content-text'>

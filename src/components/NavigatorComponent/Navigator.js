@@ -40,7 +40,7 @@ function Navigator(props) {
   return (
     <div className='navigator-component'>
       {
-        typePage === 'HomePage' &&
+        (typePage === 'HomePage' || typePage === 'UserPage') &&
         <Fragment>
           <div className='group-component'>
             <Logo navigateHome={navigateHome}/>

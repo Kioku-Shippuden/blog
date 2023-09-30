@@ -7,7 +7,6 @@ import NotificationPopup from '../../components/NavigatorComponent/NotificationP
 import './HomePage.scss';
 
 function HomePage() {
-  const [showEditProfile, setShowEditProfile] = useState(false)
   const [showProfilePopup, setShowProfilePopup] = useState(false);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
 
@@ -20,23 +19,14 @@ function HomePage() {
         setShowProfilePopup={setShowProfilePopup}
         setShowNotificationPopup={setShowNotificationPopup}
       />
-      <Body />
+      <Body typePage={'HomePage'}/>
       {
-        showProfilePopup === true && showEditProfile === false && 
-        <ProfilePopup 
-          showEditProfile={showEditProfile}
-          setShowEditProfile={setShowEditProfile}
-        />
+        showProfilePopup === true && 
+        <ProfilePopup />
       }
       {
         showNotificationPopup === true &&
         <NotificationPopup/>
-      }
-      {
-        showEditProfile === true &&
-        <ProFile
-          setShowEditProfile={setShowEditProfile}
-        />
       }
     </div>
   )

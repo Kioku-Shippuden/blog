@@ -1,0 +1,29 @@
+.following-list-component {
+    width: 70%;
+    margin: 10px 0;  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    .avatar {
+        flex: 1 1 10%;
+        img {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+        }
+    }
+    .username {
+        flex: 1 1 80%
+    }
+    .more {
+        flex: 1 1 10%;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .more:hover {
+        background-color: rgba(117, 117, 117, 0.2);
+    }
+}

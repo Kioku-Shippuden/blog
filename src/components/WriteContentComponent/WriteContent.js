@@ -83,6 +83,7 @@ function WriteContent(props) {
   // Handle Add Image
   const addImageMarkdown = async (e) => {
     const file = e.target.files[0];
+
     if (file) {
       const formData = new FormData();
       formData.append('image', file);
