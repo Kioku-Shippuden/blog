@@ -23,8 +23,8 @@ function ContentList(props) {
     let postTitle = data.postData.title;
     let postSummarize = data.postData.summarize;
     let postThumbnail = data.postData.thumbnail !== null ?  data.postData.thumbnail : '/background.jpeg';
-    let postCreatedTime = data.postData.created_at;
-    let postUpdateTime = data.postData.updated_at;
+    let postCreatedTime = new Date(data.postData.created_at);
+    let postUpdateTime = new Date(data.postData.updated_at);
 
 
     let postInfor = {
@@ -54,7 +54,7 @@ function ContentList(props) {
             <div className='footer-content'>
               <div className='other-information tag-text'>
                 <div className='tag tag-text'>GIS</div>
-                <div className='tag-text'>13 min read</div>
+                <div className='tag-text'>{postInfo.postUpdateTime.toLocaleString('default', { month: 'short', day: 'numeric' }) }</div>
               </div>
               <div className='save-content'>
                 <div className='icon-save'>

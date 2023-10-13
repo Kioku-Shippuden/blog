@@ -74,8 +74,8 @@ export function AlertProvider({ children }) {
     
     const apiUrl = `${apiDomain}/v1/api/user/notifies`;
     const reponse = await callGetApiWithoutToken(apiUrl);
-    setAlertState(reponse.metaData.data.data.length);
-    setNotificationState(reponse.metaData.data.data);
+    setAlertState(reponse.metaData.numberPending);
+    setNotificationState(reponse.metaData.data);
   }
 
   useEffect(() => {

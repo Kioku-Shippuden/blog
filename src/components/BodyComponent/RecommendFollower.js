@@ -12,7 +12,6 @@ function RecommendFollower(props) {
   }, [data]);
 
   const handleRecommendUser = (data) => {
-    console.log(`set new userrecommend ${data}`)
     let userAvatar = data.avatar || '/account-logo.png';
     let userName = data.userName  || 'Ammonius';
     let userId = data.userId

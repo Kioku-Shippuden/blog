@@ -9,10 +9,11 @@ import ManageProfile  from './ManageProfile';
 import { useNavigate } from 'react-router-dom';
 import { useAlert } from '../../hook/useAlert';
 import './style/Navigator.scss';
-
+import { callPutApiWithoutToken } from '../../helpers/request';
+const apiDomain = process.env.REACT_APP_API_DOMAIN
 function Navigator(props) {
   const { typePage, setShowPublishPopup, showProfilePopup, showNotificationPopup, setShowProfilePopup, setShowNotificationPopup } = props;
-
+  const { alertState, setAlertState } = useAlert();
   const navigate = useNavigate();
   
   const navigateHome = () => {
@@ -22,7 +23,12 @@ function Navigator(props) {
     navigate('/new-story');
   }
 
-  const onClickAlertBtn = () => {
+  const onClickAlertBtn = async () => {
+    if(alertState != 0)
+    {
+      const apiUrl = `${apiDomain}/v1/api/user/receivedNotifies`
+      await callPutApiWithoutToken(apiUrl)
+    }
     setShowProfilePopup(false);
     setShowNotificationPopup(!showNotificationPopup)
   }
