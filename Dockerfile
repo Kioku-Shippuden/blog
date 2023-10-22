@@ -1,12 +1,14 @@
-FROM node:alpine as builder
+FROM node:19
 
 WORKDIR /app
 
 ENV PATH /app/node_modules/.bin:$PATH
 
-COPY package.json ./
-RUN npm install 
-
 COPY . ./
+RUN npm install 
+RUN npm run build 
 
-CMD [ "npm", "run", "start" ]
+EXPOSE 3001
+
+
+CMD [ "serve", "s", "build", "-l", "3001" ]
