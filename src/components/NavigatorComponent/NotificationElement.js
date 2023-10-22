@@ -2,54 +2,66 @@ import React, { useState, useEffect, Fragment } from 'react'
 import { callPostApiWithoutToken, callPutApiWithoutToken } from '../../helpers/request';
 // import { useAlert } from '../../hook/useAlert';
 const apiDomain = process.env.REACT_APP_API_DOMAIN
-const UNREADSTYLE = {
-    backgroundColor: 'gray'
-};
-
-const READSTYLE = {
-
-};
 
 // FIXME
 // THis component has some issue currently
 // The state was not stored when turn of the pop up, lead to when read the notify done but still
 // gray if turn on the notify dialog again
 
+// Received
+// Read
+// Pending
+
 function NotificationElement(props) {
-    const {data} = props;
-    const [notifyData, setNotifyData] = useState(null)
-    const [readStatus, setReadStatus] = useState(false)
+    const {data, updateCurrentStatus, removeNotify} = props;
+    const [notifyData, setNotifyData] = useState(null);
+    const [readStatus, setReadStatus] = useState(null);
+    const [styleStatus, setStyleStatus] = useState(null);
 
     const handlingNotifyData = (data) => {
         setNotifyData(data)
     }
-    const readNotify = async () => {
+
+    const handleStyleTag = (currentStatus) => {
+        switch (currentStatus) {
+            case "Read": 
+                setStyleStatus({
+                    ...styleStatus, 
+                    backgroundColor: "white",
+                    color: 'black'
+                }); break;
+            case "Received":
+                setStyleStatus({
+                    ...styleStatus, 
+                    backgroundColor: "blue",
+                    color: 'white'
+                }); break;
+        }
+    }
+
+    const readNotify = async (typeNotify) => {
+        if (typeNotify === "friendRequest") return;
         if(readStatus)
         {
-            console.warn("This notify have read before")
+            console.warn("This notify havread before")
             return
         }
         try {
             const apiUrl = `${apiDomain}/v1/api/user/readNotify/${notifyData._id}`
             await callPutApiWithoutToken(apiUrl)
-            setReadStatus(true)
+            handleStyleTag("Read");
+            updateCurrentStatus(notifyData._id);
         } catch (error) {
             console.error(`Issue when update status read for the notify ${error}`)
         }
     }
-    useEffect(() => {
-        // This log for tracing FIXME
-        console.log('the notify mounted')
-        // Specify the cleanup code to run when the component is unmounted
-        return () => {
-            // This code runs when the component is unmounted
-            // You can perform cleanup tasks here
-            console.log('Component is unmounted');
-        };
-    }, []);
 
     useEffect(() => {
-        handlingNotifyData(data)
+        const currentReadStaus = data.status;
+
+        handleStyleTag(currentReadStaus);
+        handlingNotifyData(data);
+
       }, [data]);
     
     
@@ -84,6 +96,7 @@ function NotificationElement(props) {
     }
 
     const answereRequest = async (data, option) => {
+        removeNotify(data._id);
         const senderId = data.sender.userId
         try {
             const apiUrl = `${apiDomain}/v1/api/user/answere_request/${senderId}?ans=${option}`;
@@ -94,14 +107,14 @@ function NotificationElement(props) {
     }
 
     return (
-        <div className='notification-element'>
+        <div className='notification-element' style={styleStatus}>
             {   notifyData !== null &&
                 <Fragment>
                     <div className='image'>
                         <img src='/account-logo.png' alt='' />
                     </div>
-                    <div className='information' style={readStatus? READSTYLE: UNREADSTYLE} onClick={() => {
-                        readNotify()
+                    <div className='information' onClick={() => {
+                        readNotify(notifyData.typeNotify)
                     }}>
                         <div className='main-infor'>
                             <p>{notifyData.notifyMessage}</p>
@@ -114,12 +127,12 @@ function NotificationElement(props) {
                         notifyData.typeNotify === "friendRequest" &&
                         <div className='footer'>
                             <div className='accept btn' onClick={ () => {
-                                answereRequest(data, 'Accepted')
+                                answereRequest(notifyData, 'Accepted')
                             }}>
                                 <p>Accept</p>
                             </div>
                             <div className='reject btn' onClick={ () => {
-                                answereRequest(data, 'Rejected')
+                                answereRequest(notifyData, 'Rejected')
                             }}>
                                 <p>Reject</p>
                             </div>

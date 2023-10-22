@@ -78,12 +78,27 @@ export function AlertProvider({ children }) {
     setNotificationState(reponse.metaData.data);
   }
 
+  // Update Current Notification
+  // TODO
+  const updateCurrentStatus = (notifyId) => {
+    notificationState.forEach((notify) => {
+      if (notify._id === notifyId) {
+        notify.status = "Read";
+      }
+    })
+  }
+
+  const removeNotify = (notifyId) => {
+    const newNotificationState = notificationState.filter(notify => notify._id !== notifyId);
+    setNotificationState(newNotificationState);
+  }
+
   useEffect(() => {
     getAllNotification();
   }, [])
 
   return (
-    <AlertContext.Provider value={{ alertState, notificationState, setAlertState, setNotificationState }}>
+    <AlertContext.Provider value={{ alertState, notificationState, setAlertState, setNotificationState, updateCurrentStatus, removeNotify }}>
       {children}
     </AlertContext.Provider>
   );
