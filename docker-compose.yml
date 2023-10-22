@@ -1,0 +1,14 @@
+version: '3'
+services:
+  blogFe:
+      image: hunghoang149/blog_fe:v0
+      ports: 
+        - 3001:3001
+      container_name: blogFe
+      networks:
+        blog_network:
+          aliases:
+          - blogFe
+networks:
+  blog_network:
+    external: true
