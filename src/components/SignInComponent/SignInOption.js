@@ -1,8 +1,30 @@
 import React from 'react'
 import './style/SignInOption.scss'
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+const redirectUrl = process.env.REACT_APP_GOOGLE_AUTHORIZED_REDIRECT_URI
+const googleid = process.env.REACT_APP_GOOGLE_CLIENT_ID
+const getOauthGoogleUrl = () => {
+  const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
+  const options = {
+    redirect_uri: redirectUrl,
+    client_id: googleid,
+    access_type: 'offline',
+    response_type: 'code',
+    prompt: 'consent',
+    scope: [
+      'https://www.googleapis.com/auth/userinfo.profile',
+      'https://www.googleapis.com/auth/userinfo.email',
+      'openid'
+    ].join(' ')
+  }
+  const qs = new URLSearchParams(options)
+  console.log(`${rootUrl}?${qs.toString()}`)
+  return `${rootUrl}?${qs.toString()}`
+}
 
 function SignInOption(props) {
+  const oauthURL = getOauthGoogleUrl()
   const {displayAccountOption} = props;
   const navigate = useNavigate();
   const navigateSignUp = () => {
@@ -19,7 +41,9 @@ function SignInOption(props) {
           <div className='image'>
             <img src="/google-logo.png" alt="google option" />
           </div>
-          <div className='text'>Sign in with Google</div>
+          <div className='text'>
+              <Link to={oauthURL}>Sign in with Google</Link>
+          </div>
         </div>
         <div className='option'>
           <div className='image'>
