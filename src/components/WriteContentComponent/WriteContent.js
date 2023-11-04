@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, Fragment } from 'react';
 import { callPostApiWithoutToken } from '../../helpers/request';
 import { styled } from '@mui/material/styles';
 import ReactMde from "react-mde";
@@ -18,10 +18,9 @@ import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import "react-mde/lib/styles/css/react-mde-all.css";
 import 'react-quill/dist/quill.snow.css'
-import './WriteContent.scss';
+import './style/WriteContent.scss';
 
 const apiDomain = process.env.REACT_APP_API_DOMAIN
-
 const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
   position: 'absolute',
   '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
@@ -38,6 +37,7 @@ function WriteContent(props) {
   const {value, setValue} = props;
   const fileInputRef = useRef(null);
   const [selectedTab, setSelectedTab] = useState("write");
+  const [positionBox, setPositionBox] = useState(0);
   const converter = new showdown.Converter();
   
   // Generate Markdown Preview
@@ -147,53 +147,81 @@ function WriteContent(props) {
     { icon: <TextIncreaseIcon />, name: 'Set Large Size', onClick: () => changeImageSize('large')},
     { icon: <CodeIcon />, name: 'Add Code', onClick: () => addCodeMarkdown() },
   ];
+
+  const handleReactMdeClick = (event) => {
+    let currentElement = event.target;
+
+    // Check if the clicked element has the class name "mde" or is a descendant of an element with that class
+      if (currentElement.classList.contains("mde-text")) {
+        const cursorPositionX = event.clientX;
+        const cursorPositionY = event.clientY;
+
+        setPositionBox(cursorPositionY);
+        console.log("Cursor Position (X, Y):", cursorPositionX, cursorPositionY);
+      }
+};
+
+const handleKeyDown = (event) => {
+  console.log(event)
+  if (event.key === 'Enter') {
+    // event.preventDefault(); // Prevent the default behavior (line break)
+    // const { target } = event;
+    // const { selectionStart, selectionEnd } = target;
+    // const newText = markdown.slice(0, selectionStart) + '\n' + markdown.slice(selectionEnd);
+    // setMarkdown(newText);
+  }
+};
   
   return (
     <div className='write-content-component'>
-      {
-        selectedTab === 'write' &&
-        <Box sx={{ position: 'relative', height: '10%' }}>
-          <StyledSpeedDial
-            ariaLabel="SpeedDial playground example"
-            icon={<SpeedDialIcon />}
-            direction="right"
-            // open={openToolbox}
-          >
-          {actions.map((action) => (
-            <SpeedDialAction
-              key={action.name}
-              icon={action.icon}
-              tooltipTitle={action.name}
-              tooltipPlacement='bottom-end'
-              onClick={() => {
-                if (action.ref && action.name === 'Add Image') {
-                  action.ref.current.click();
-                } else {
-                  action.onClick();
-                }
-              }}
-            />
-          ))}
-          </StyledSpeedDial>
-        </Box>
-      }
-      <input
-        type="file"
-        accept="image/*"
-        onChange={addImageMarkdown}
-        style={{
-          display: 'none',
-        }}
-        ref={fileInputRef}
-      />
-      <ReactMde
-        value={value}
-        onChange={setValue}
-        selectedTab={selectedTab}
-        onTabChange={setSelectedTab}
-        toolbarCommands={[[]]}
-        generateMarkdownPreview={generateMarkdownPreview}
-      />
+      <div className='body-component'>
+        <div className='option-component'>
+          <div id='tool-box-component' style={{top: `${positionBox}px`}}></div>
+          {/* <Box sx={{ position: 'relative', height: '10%' }}>
+            <StyledSpeedDial
+              ariaLabel="SpeedDial playground example"
+              icon={<SpeedDialIcon />}
+              direction="right"
+            >
+            {actions.map((action) => (
+              <SpeedDialAction
+                key={action.name}
+                icon={action.icon}
+                tooltipTitle={action.name}
+                tooltipPlacement='bottom-end'
+                onClick={() => {
+                  if (action.ref && action.name === 'Add Image') {
+                    action.ref.current.click();
+                  } else {
+                    action.onClick();
+                  }
+                }}
+              />
+            ))}
+            </StyledSpeedDial>
+          </Box>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={addImageMarkdown}
+            style={{
+              display: 'none',
+            }}
+            ref={fileInputRef}
+          /> */}
+        </div>
+        <div className='text-component' onClick={handleReactMdeClick}>
+          <ReactMde
+            value={value}
+            onChange={setValue}
+            selectedTab={selectedTab}
+            onTabChange={setSelectedTab}
+            onKeyDown={handleKeyDown}
+            toolbarCommands={[[]]}
+            generateMarkdownPreview={generateMarkdownPreview}
+          />
+        </div>
+      </div>
     </div>
   )
 }

@@ -1,12 +1,12 @@
 import React, { useState, useRef } from 'react'
 import { callPostApiWithoutToken } from '../../helpers/request';
 import { useNavigate } from 'react-router';
-import './PublishForm.scss';
+import './style//PublishForm.scss';
 
 const apiDomain = process.env.REACT_APP_API_DOMAIN
 
 function PublishForm(props) {
-    const { contentPost, setShowPublishPopup } = props;
+    const { titlePost, contentPost, setShowPublishPopup } = props;
     const navigate = useNavigate();
     const tagPostRef = useRef(null);
     const titlePostRef = useRef(null);
@@ -88,6 +88,8 @@ function PublishForm(props) {
             throw(err);
         }
     }
+
+    console.log('ANHKHOA', contentPost)
 
     return (
         <div className='publish-form'>

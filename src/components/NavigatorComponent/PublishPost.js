@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import './style/PublishPost.scss';
 
 function PublishPost(props) {
-  const { setShowPublishPopup, turnOffPopup } = props;
+  const { setShowPublishPopup, turnOffPopup, onSaveEdit } = props;
 
   const showPublishPopup = async () => {
+    onSaveEdit()
     turnOffPopup();
     setShowPublishPopup(true);
   }

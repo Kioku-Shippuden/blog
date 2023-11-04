@@ -1,0 +1,74 @@
+diff --git a/Dockerfile b/Dockerfile
+index a7dd945..4d46b50 100644
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -5,9 +5,8 @@ WORKDIR /app
+ ENV PATH /app/node_modules/.bin:$PATH
+ 
+ COPY package.json ./
+-COPY package-lock.json ./
+-RUN npm install --legacy-peer-deps
++RUN npm install 
+ 
+ COPY . ./
+ 
+-CMD [ "npm", "run", "start" ]
+\ No newline at end of file
++CMD [ "npm", "run", "start" ]
+diff --git a/package.json b/package.json
+index 784bcef..4f5533b 100644
+--- a/package.json
++++ b/package.json
+@@ -9,12 +9,12 @@
+     "@mui/icons-material": "^5.14.7",
+     "@mui/material": "^5.14.7",
+     "@testing-library/jest-dom": "^5.17.0",
+-    "@testing-library/react": "^13.4.0",
++    "@testing-library/react": "^12.1.5",
+     "@testing-library/user-event": "^13.5.0",
+     "dotenv": "^16.3.1",
+     "notistack": "^3.0.1",
+-    "react": "^18.2.0",
+-    "react-dom": "^18.2.0",
++    "react": "^17.0.0",
++    "react-dom": "^17.0.0",
+     "react-markdown": "^8.0.7",
+     "react-mde": "^11.5.0",
+     "react-router": "^6.14.2",
+@@ -24,7 +24,7 @@
+     "web-vitals": "^2.1.4"
+   },
+   "scripts": {
+-    "start": "react-scripts start",
++    "start": "PORT=3001 react-scripts start",
+     "build": "react-scripts build",
+     "test": "react-scripts test",
+     "eject": "react-scripts eject"
+diff --git a/src/index.js b/src/index.js
+index 2b82058..64f66e4 100644
+--- a/src/index.js
++++ b/src/index.js
+@@ -1,12 +1,12 @@
+ import React from 'react';
+-import ReactDOM from 'react-dom/client';
++import ReactDOM from 'react-dom';
+ import './index.css';
+ import App from './App';
+ import { BrowserRouter } from 'react-router-dom';
+ import { SnackbarProvider } from 'notistack';
+ 
+-const root = ReactDOM.createRoot(document.getElementById('root'));
+-root.render(
++//const root = ReactDOM.createRoot(document.getElementById('root'));
++ReactDOM.render(
+   <React.StrictMode>
+     <BrowserRouter>
+       <SnackbarProvider 
+@@ -16,5 +16,6 @@ root.render(
+         <App />
+       </SnackbarProvider>
+     </BrowserRouter>
+-  </React.StrictMode>
++  </React.StrictMode>,
++  document.getElementById('root')
+ );

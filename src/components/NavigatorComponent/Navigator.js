@@ -12,7 +12,7 @@ import './style/Navigator.scss';
 import { callPutApiWithoutToken } from '../../helpers/request';
 const apiDomain = process.env.REACT_APP_API_DOMAIN
 function Navigator(props) {
-  const { typePage, setShowPublishPopup, showProfilePopup, showNotificationPopup, setShowProfilePopup, setShowNotificationPopup } = props;
+  const { typePage, setShowPublishPopup, showProfilePopup, showNotificationPopup, setShowProfilePopup, setShowNotificationPopup, onSaveEdit } = props;
   const { alertState, setAlertState } = useAlert();
   const navigate = useNavigate();
   
@@ -64,7 +64,11 @@ function Navigator(props) {
             <Logo navigateHome={navigateHome}/>
             <SaveCachePost />
           </div>
-          <PublishPost setShowPublishPopup={setShowPublishPopup} turnOffPopup={turnOffPopup}/>
+          <PublishPost
+            onSaveEdit={onSaveEdit}
+            turnOffPopup={turnOffPopup}
+            setShowPublishPopup={setShowPublishPopup} 
+          />
           <Alert onClickAlertBtn={onClickAlertBtn}/>
           <ManageProfile onClickManageProfileBtn={onClickManageProfileBtn}/>
         </Fragment>
