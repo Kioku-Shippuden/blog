@@ -7,13 +7,14 @@ import Underline from '@editorjs/underline';
 import { callPostApiWithoutToken } from "./request";
 
 const apiDomain = process.env.REACT_APP_API_DOMAIN;
-const Header = require("editorjs-header-with-alignment");
 const Quote = require('@editorjs/quote');
-const Delimiter = require('@editorjs/delimiter');
-const Paragraph = require('editorjs-paragraph-with-alignment');
 const LinkTool = require('@editorjs/link');
 const Marker = require('@editorjs/marker');
+const Delimiter = require('@editorjs/delimiter');
 const InlineCode = require('@editorjs/inline-code');
+const Header = require("editorjs-header-with-alignment");
+const Paragraph = require('editorjs-paragraph-with-alignment');
+const FontSizeTool = require('editorjs-inline-font-size-tool');
 
 
 const Configuration = (readOnly, data) => {
@@ -26,8 +27,8 @@ const Configuration = (readOnly, data) => {
         class: Header,
         config: {
           placeholder: 'Header',
-          levels: [2, 3],
-          defaultLevel: 2,
+          levels: [1, 2],
+          defaultLevel: 1,
           defaultAlignment: 'left'
         },
         toolbox: [

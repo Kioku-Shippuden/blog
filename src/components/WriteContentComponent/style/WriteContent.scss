@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
 .write-content-component {
-    margin: 0 8%;
     height: 75%;
     .body-component {
         display: flex;
@@ -154,8 +153,13 @@
         box-shadow: none !important;
         -webkit-box-shadow: none !important
     }
+    
     .ce-paragraph {
         margin-bottom: 1rem;
+        font-size: 22px !important;
+    }
+    .cdx-list__item {
+        font-size: 22px !important;
     }
     .cdx-quote__text {
         min-height: 60px;

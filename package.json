@@ -72,6 +72,7 @@
     "autoprefixer": "^10.4.16",
     "axios": "^1.4.0",
     "editorjs-drag-drop": "^1.1.13",
+    "editorjs-inline-font-size-tool": "^1.0.1",
     "editorjs-toggle-block": "^0.3.14",
     "postcss": "^8.4.30",
     "react-quill": "^2.0.0",
