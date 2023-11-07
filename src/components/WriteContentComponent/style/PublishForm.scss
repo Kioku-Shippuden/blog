@@ -1,8 +1,9 @@
-.publish-form {
-    position: absolute;
+.publish-formm {
+    // position: absolute;
     top: 50%;
     left: 50%;
-    width: 70vh;
+    width: 100vw;
+    height: 100Vh;
     border-radius: 30px;
     background-color: white;
     transform: translate(-50%, -50%);
@@ -79,6 +80,246 @@
             padding: 10px 20px;
             border-radius: 20px;
             background-color: #008001;
+        }
+    }
+}
+
+.publish-container {
+    width: 100%;
+    height: 85%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    .publish-form {
+        width: 65vw;
+        display: flex;
+        flex-direction: column;
+        .close-btn-component {
+            width: 100%;
+            height: 10%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            cursor: pointer;
+        }
+        .form-component {
+            width: 100%;
+            height: 90%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .review-component {
+                width: 50%;
+                height: 100%;
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                .story-review {
+                    width: 100%;
+                    display: flex;
+                    margin: 5px 0;
+                    align-items: center;
+                    justify-content: flex-start;
+                }
+                .author-review {
+                    width: 100%;
+                    display: flex;
+                    margin: 10px 0;
+                    padding: 10px;
+                    align-items: center;
+                    justify-content: flex-start;
+                    gap: 7px;
+                    img {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                    }
+                }
+                .content-review {
+                    width: 100%;
+                    margin: 10px 0;
+                    display: flex;
+                    flex-direction: row;
+                    .summary-review {
+                        flex: 1 1 70%;
+                        padding: 10px;
+                        display: flex;
+                        flex-direction: column;
+                        .title-post {
+                            width: 100%;
+                            padding: 5px;
+                        }
+                    }
+                    .thumnail-review {
+                        flex: 1 1 30%;
+                        display: flex;
+                        align-items: center;
+                        position: relative;
+                        img {
+                            width: 100%;
+                            height: 65%;
+                            object-fit: cover;
+                        }
+                        .change-thumnail-component {
+                            position: absolute;
+                            width: 80%;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            .btn {
+                                display: flex;
+                                padding: 5px;
+                                color: #ffffff;
+                                border-radius: 20px;
+                                align-items: center;
+                                justify-content: center;
+                                border: 1px solid #ffffff;
+                                background-color: #000000;
+                                opacity: 0.6;
+                                font-size: 15px;
+                            }
+                        }
+                    }
+                }
+                .tag-review {
+                    width: 100%;
+                    margin: 10px 0;
+                    padding: 10px;
+                    display: flex;
+                    flex-direction: row;
+                    gap: 10px;
+                    justify-content: flex-start;
+                    .tag {
+                        display: flex;
+                        padding: 10px 15px;
+                        border-radius: 20px;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: rgba(117, 117, 117, 0.2);
+                    }
+                    .time {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+            .input-component {
+                width: 47%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                .author-input {
+                    width: 100%;
+                    padding: 10px;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    align-items: center;
+                    gap: 10px
+                }
+                .title-input {
+                    width: 100%;
+                    display: flex;
+                    padding: 10px;
+                    flex-direction: column;
+                    .title {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                    }
+                    .input {
+                        width: 100%;
+                        textarea {
+                            width: 100%;
+                            height: 5vh;
+                            font-size: 18px;
+                            padding: 5px 10px;
+                            font-family: 'Kalam', cursive;
+                        }
+                    }
+                }
+                .summary-input {
+                    width: 100%;
+                    display: flex;
+                    padding: 10px;
+                    flex-direction: column;
+                    .title {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                    }
+                    .input {
+                        width: 100%;
+                        textarea {
+                            width: 100%;
+                            height: 15vh;
+                            font-size: 18px;
+                            padding: 5px 10px;
+                            font-family: 'Kalam', cursive;
+                        }
+                    }
+                }
+                .upload-file-input {
+                    width: 100%;
+                    display: flex;
+                    padding: 10px;
+                    flex-direction: row;
+                    align-items: center;
+                    .title {
+                        flex: 1 1 50%;
+                    }
+                    .input {
+                        flex: 1 1 50%;
+                        .upload-file-btn {
+                            width: 100%;
+                            padding: 15px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border: 1px solid #afb7c3;
+                            border-radius: 5px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+                .tag-input {
+                    width: 100%;
+                    display: flex;
+                    padding: 10px;
+                    flex-direction: row;
+                    align-items: center;
+                    .title {
+                        flex: 1 1 50%;
+                    }
+                    .select {
+                        flex: 1 1 50%;
+                    }
+                }
+                .submit-btn {
+                    width: 100%;
+                    margin-top: 20px;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    padding: 10px;
+                    .btn {
+                        padding: 10px 20px;
+                        color: #ffffff !important;
+                        border-radius: 20px;
+                        background-color: #008001;
+                        cursor: pointer;
+                    }
+                }
+                .err {
+                    padding: 10px;
+                    color: red;
+                }
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ function WritePage() {
   const edjsParser = editorjsHTML();
 
   const [editor, setEditor] = useState(null);
-  const [titlePost, setTitlePost] = useState('Title');
+  const [titlePost, setTitlePost] = useState('');
   const [contentPost, setContentPost] = useState(null);
   const [showPublishPopup, setShowPublishPopup] = useState(false);
   const [showProfilePopup, setShowProfilePopup] = useState(false);
@@ -46,15 +46,16 @@ function WritePage() {
         showNotificationPopup={showNotificationPopup}
         setShowNotificationPopup={setShowNotificationPopup}
       />
-      <Fragment>
-        <TitleComponent setTitlePost={setTitlePost}/>
-        <WriteContent_V2 editor={editor} setEditor={setEditor}/>
-      </Fragment>
-      {/* <WriteContent value={contentPost} setValue={setContentPost}/> */}
+      {
+        showPublishPopup === false && 
+        <Fragment>
+          <TitleComponent setTitlePost={setTitlePost}/>
+          <WriteContent_V2 editor={editor} setEditor={setEditor}/>
+        </Fragment>
+      }
       {
         showPublishPopup === true && 
-        <PublishForm 
-          titlePost={titlePost}
+        <PublishForm
           contentPost={contentPost} 
           setShowPublishPopup={setShowPublishPopup}
         />
