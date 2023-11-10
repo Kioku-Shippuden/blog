@@ -1,19 +1,13 @@
-import React, { Fragment, useState, useEffect } from 'react'
-import ProFile from '../../components/ProfileComponent/ProFile';
+import React, { Fragment, useState } from 'react'
 import Navigator from '../../components/NavigatorComponent/Navigator';
 import ProfilePopup from '../../components/NavigatorComponent/ProfilePopup';
 import PublishForm from '../../components/WriteContentComponent/PublishForm';
-import WriteContent from '../../components/WriteContentComponent/WriteContent';
-import NotificationPopup from '../../components/NavigatorComponent/NotificationPopup';
-import WriteContent_V2 from '../../components/WriteContentComponent/WriteContent_V2';
 import TitleComponent from '../../components/WriteContentComponent/TitleComponent';
-// import { edjsHTML } from '../../components/WriteContentComponent/tool/editorjs-html';
+import WriteContent_V2 from '../../components/WriteContentComponent/WriteContent_V2';
+import NotificationPopup from '../../components/NavigatorComponent/NotificationPopup';
 import './WritePage.scss';
 
 function WritePage() {
-  const editorjsHTML = require("editorjs-html");
-  const edjsParser = editorjsHTML();
-
   const [editor, setEditor] = useState(null);
   const [titlePost, setTitlePost] = useState('');
   const [contentPost, setContentPost] = useState(null);
@@ -49,8 +43,8 @@ function WritePage() {
       {
         showPublishPopup === false && 
         <Fragment>
-          <TitleComponent setTitlePost={setTitlePost}/>
-          <WriteContent_V2 editor={editor} setEditor={setEditor}/>
+          <TitleComponent setTitlePost={setTitlePost} contentPost={contentPost}/>
+          <WriteContent_V2 editor={editor} setEditor={setEditor} contentPost={contentPost}/>
         </Fragment>
       }
       {

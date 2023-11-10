@@ -1,24 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { callPostApiWithoutToken, callGetApiWithoutToken } from '../../helpers/request';
-import { useNavigate } from 'react-router';
-import './style//PublishForm.scss';
-
-
+import React, { useState, useEffect } from 'react'
 import moment from 'moment';
-
+import './style//PublishForm.scss';
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-
+import { useNavigate } from 'react-router';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
 import useUserProfile from '../../hook/useUserProfile';
+import { callPostApiWithoutToken } from '../../helpers/request';
   
 const apiDomain = process.env.REACT_APP_API_DOMAIN
 
 function PublishForm(props) {
     const useProfile = useUserProfile();
-
     const { contentPost, setShowPublishPopup } = props;
 
     const [avatar, setAvatar] = useState(null);
@@ -28,6 +23,7 @@ function PublishForm(props) {
     const [summaryPost, setSummaryPost] = useState('');
     const [currentTime, setCurrentTime] = useState('');
     const [thumbnailPost, setThumnailPost] = useState('');
+    const [thumbnailTemp, setThumbnailTemp] = useState('');
 
     const [displayError, setDisplayError] = useState({
         topic: false,
@@ -36,15 +32,6 @@ function PublishForm(props) {
 	});
 
     const navigate = useNavigate();
-    
-    const tesstAPIGoogle = async() => {
-        try {
-            const url = "https://maps.googleapis.com/maps/api/place/queryautocomplete/json?&input=hot&location=1974606.808943011%2C8704016.577829625&radius=1500&key=AIzaSyAm9ekbF8SnmFeUH4BvEffHYu_TuUieoDw"
-            const reponse = await callGetApiWithoutToken(url)
-        } catch (err) {
-            throw(err)
-        }
-    }
 
     const validationForm = (title, topic, summarize) => {
 		const validated = {
@@ -55,61 +42,51 @@ function PublishForm(props) {
         return validated;
 	}
 
+    const updateTitlePublish = (contentPost, title) => {
+        var contentJson = JSON.parse(contentPost);
+        contentJson.title = title;
+
+        return JSON.stringify(contentJson);
+    }
+
     const onSubmit = () => {
         const title = titlePost;
         const topic = topicPost;
         const summarize = summaryPost;
         const thumbnail = thumbnailPost;
         const validated = validationForm( title, topic, summarize);
-
-        tesstAPIGoogle()
-    
         if (Object.values(validated).some(error => error)) {
             setDisplayError(validated)
             return;
         }
 
-        var contentJson = JSON.parse(contentPost)
-        contentJson.title = title
-    
-        // handlePublishPost(title, topic, summarize, JSON.stringify(contentJson), thumbnail);
-        // setShowPublishPopup(false);
+        const contentPublish = updateTitlePublish(contentPost, title);
+        
+        handlePublishPost(title, topic, summarize, contentPublish, thumbnail);
+        setShowPublishPopup(false);
     }
 
-    const handlePublishPost = async (title, tag, summarize, contentPost, thumbnail) => {
+    const handlePublishPost = async (title, topic, summarize, contentPost, thumbnail) => {
         if (contentPost === ' return') return;
-    
-        let contentId = await publishContent(title, tag, summarize, contentPost);
-        await publishThumnail(contentId, thumbnail);
-        navigate('/');
-    }
 
-    const publishContent = async (title, tag, summarize, contentPost) => {
         try {
-            const apiUrl = `${apiDomain}/v1/api/post/publish`;
-            const reponse = await callPostApiWithoutToken(apiUrl, {
+            const formData = new FormData();
+            const postData = {
                 "postTitle": title,
                 "postStatus": "publish",
                 "postPermit": "private",
-                "postCategory": tag,
+                "postCategory": topic,
                 "postSummarize": summarize,
                 "postContent": contentPost
-            });
-            return reponse.metaData.newPostId;
-        } catch (err) {
-            throw(err);
-        }
-    }
+            }
+            formData.append('thumbnail', thumbnail);
+            formData.append('postData', JSON.stringify(postData));
 
-    const publishThumnail = async (contentId, thumbnail) => {
-        const formData = new FormData();
-        formData.append('image', thumbnail);
-
-        try {
-            const apiUrl = `${apiDomain}/v1/api/upload/image?topic=thumnail&postId=${contentId}`;
-            await callPostApiWithoutToken(apiUrl, formData)
+            const apiUrl = `${apiDomain}/v1/api/post/publish_v2`;
+            await callPostApiWithoutToken(apiUrl, formData);
+            navigate('/');
         } catch (err) {
-            throw(err);
+            console.log(err);
         }
     }
 
@@ -130,17 +107,12 @@ function PublishForm(props) {
         setSummaryPost(event.target.value);
     }
 
-    const changeHandler = async (e) => {
+    const changeThumnailTemp = async (e) => {
         const thumnail = e.target.files[0];
-        const formData = new FormData();
-        formData.append('image', thumnail);
-
-        try {
-            const apiUrl = `${apiDomain}/v1/api/upload/image?topic=content`;
-            const newThumnail = await callPostApiWithoutToken(apiUrl, formData);
-            setThumnailPost(newThumnail.metaData);
-        } catch (err) {
-            console.log(err);
+        if (thumnail) {
+            const imageUrl = URL.createObjectURL(thumnail);
+            setThumnailPost(thumnail);
+            setThumbnailTemp(imageUrl);
         }
     }
 
@@ -149,6 +121,23 @@ function PublishForm(props) {
         var dateObj = currentDate.format("MMM Do YY");
         setCurrentTime(dateObj)
     }
+
+    const convertImageUrlToFile = async (imageUrl, caption) => {
+        try {
+            const maxSize = 1 * 1024 * 1024;
+            const response = await fetch(imageUrl);
+            let blob = await response.blob();
+    
+            if (blob.size > maxSize) {
+                blob = blob.slice(0, maxSize, blob.type);
+            }
+    
+            const file = new File([blob], caption, { type: blob.type });
+            setThumnailPost(file);
+        } catch (error) {
+            console.error('Error converting image:', error);
+        }
+    };
 
     useEffect(() => {
         const contentPostJson = JSON.parse(contentPost);
@@ -167,7 +156,9 @@ function PublishForm(props) {
         // Update Thumnail
         const images = blocks.find((element) => element.type === 'image');
         const url = images?.data.file.url;
-        setThumnailPost(url ? url : '/account-logo.png');
+        const caption = images?.data.caption;
+        convertImageUrlToFile(url, caption);
+        setThumbnailTemp(url ? url : '/account-logo.png');
 
     }, [contentPost])
 
@@ -203,7 +194,7 @@ function PublishForm(props) {
                                 </div>
                             </div>
                             <div className='thumnail-review'>
-                                <img src={thumbnailPost} alt=''></img>
+                                <img src={thumbnailTemp} alt=''></img>
                             </div>
                         </div>
                         {
@@ -283,7 +274,7 @@ function PublishForm(props) {
                          <div className='upload-file-input'>
                             <div className='title content-text'>Update thumbnail for your post:</div>
                             <div className='input'>
-                                <input type="file" id="actual-btn" hidden onChange={changeHandler}/>
+                                <input type="file" id="actual-btn" hidden onChange={changeThumnailTemp}/>
                                 <label className='upload-file-btn' for="actual-btn">
                                     <i class="fas fa-cloud-upload-alt"></i>
                                 </label>
