@@ -20,6 +20,7 @@ const FontSizeTool = require('editorjs-inline-font-size-tool');
 const Configuration = (readOnly, data) => {
   return {
     holder: "editorjs",
+    placeholder: 'Let`s write an awesome story!',
     readOnly: readOnly,
     tools: {
       // Header

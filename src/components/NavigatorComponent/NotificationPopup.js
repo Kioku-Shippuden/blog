@@ -33,6 +33,10 @@ function NotificationPopup() {
                 <Fragment>
                     <div className='notification-body'>
                         {
+                            currentNotification.length === 0 &&
+                            <div className='content-text'>No Notifications to display</div>
+                        }
+                        {
                             currentNotification.length > MIN_NOTIFICATION_SHOW &&
                             currentNotification.slice(MIN_NOTIFICATION_SHOW, MAX_NOTIFICATION_SHOW).map((data, index) => {
                                 return (

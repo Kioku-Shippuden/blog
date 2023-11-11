@@ -3,7 +3,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    input {
+    textarea {
         width: 650px;
         margin: 0 auto;
         font-size: 2.7em;
@@ -13,7 +13,7 @@
         color: #242424;
         font-family: "Times New Roman" !important;
     }
-    input:focus {
+    textarea:focus {
         outline: none !important;
     }
 }

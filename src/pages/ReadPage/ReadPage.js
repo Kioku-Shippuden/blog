@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import ProFile from '../../components/ProfileComponent/ProFile';
 import Navigator from '../../components/NavigatorComponent/Navigator';
 import ReadContent from '../../components/ReadContentComponent/ReadContent';
 import ProfilePopup from '../../components/NavigatorComponent/ProfilePopup';
@@ -13,7 +12,7 @@ function ReadPage() {
   return (
     <div className='read-page'>
       <Navigator 
-        typePage={'HomePage'}
+        typePage={'ReadPage'}
         showProfilePopup={showProfilePopup}
         showNotificationPopup={showNotificationPopup}
         setShowProfilePopup={setShowProfilePopup}
