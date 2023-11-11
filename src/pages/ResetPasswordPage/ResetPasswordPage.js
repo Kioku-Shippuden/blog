@@ -61,7 +61,7 @@ function ResetPasswordPage() {
         changeModePage('codeInput');
       }
 		} catch (err) {
-			throw(err)
+			console.log(err)
 		}
 	}
 
@@ -95,7 +95,7 @@ function ResetPasswordPage() {
         navigateSignIn();
       }
 		} catch (err) {
-			throw(err)
+			console.log(err)
 		}
 	}
 

@@ -38,7 +38,7 @@ function ReadContent() {
             setContent(jsonData.content);
             setCategoryPost(postCategory);
         } catch (err) {
-            throw(err)
+            console.log(err)
         }
     };
 
