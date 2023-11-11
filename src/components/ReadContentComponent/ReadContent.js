@@ -1,8 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react'
 import EditorJS from '@editorjs/editorjs';
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 import useUserProfile from '../../hook/useUserProfile';
-import React, {useState, useEffect, useRef} from 'react'
 import Configuration from '../../helpers/editor_configuration';
 import { callGetApiWithoutToken, callPutApiWithoutToken } from '../../helpers/request';
 import './ReadContent.scss'
