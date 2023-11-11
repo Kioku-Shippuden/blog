@@ -13,7 +13,7 @@ function ReadPage() {
   return (
     <div className='read-page'>
       <Navigator 
-        typePage={'HomePage'}
+        typePage={'ReadPage'}
         showProfilePopup={showProfilePopup}
         showNotificationPopup={showNotificationPopup}
         setShowProfilePopup={setShowProfilePopup}

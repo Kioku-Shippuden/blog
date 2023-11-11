@@ -13,6 +13,7 @@ import { callPutApiWithoutToken } from '../../helpers/request';
 const apiDomain = process.env.REACT_APP_API_DOMAIN
 function Navigator(props) {
   const { typePage, setShowPublishPopup, showProfilePopup, showNotificationPopup, setShowProfilePopup, setShowNotificationPopup, onSaveEdit } = props;
+
   const { alertState, setAlertState } = useAlert();
   const navigate = useNavigate();
   
@@ -46,7 +47,7 @@ function Navigator(props) {
   return (
     <div className='navigator-component'>
       {
-        (typePage === 'HomePage' || typePage === 'UserPage') &&
+        (typePage === 'HomePage' || typePage === 'UserPage' || typePage === 'ReadPage') &&
         <Fragment>
           <div className='group-component'>
             <Logo navigateHome={navigateHome}/>

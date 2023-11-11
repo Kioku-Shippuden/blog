@@ -10,6 +10,72 @@
         letter-spacing: -0.011em;
         color: #242424;
         font-family: 'Times New Roman', Times, serif;
+        textarea {
+            width: 650px;
+            margin: 0 auto;
+            font-size: 1.5em;
+            font-weight: 400;
+            letter-spacing: -0.011em;
+            border: none;
+            color: #242424;
+            font-family: "Times New Roman" !important;
+        }
+        textarea:focus {
+            outline: none !important;
+        }
+    }
+    .author-post {
+        width: 650px;
+        margin: 3% auto;
+        display: flex;
+        flex-direction: column;
+        .author-post {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+            .element{
+                padding: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                .element-child {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    cursor: pointer;
+                }
+                img {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                }
+            }
+        }
+        .post-action {
+            width: 100%;
+            border-top: 1px solid #000000;
+            border-bottom: 1px solid #000000;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            .element{
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 50px;
+                .element-child {
+                    font-size: 22px;
+                    margin: 10x 30px;
+                    cursor: pointer;
+                }
+            }
+        }
     }
     .content-post {
         font-family: 'Times New Roman', Times, serif;
