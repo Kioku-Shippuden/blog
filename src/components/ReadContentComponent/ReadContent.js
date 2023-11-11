@@ -1,9 +1,10 @@
 import React, {useState, useEffect, useRef} from 'react'
 import EditorJS from '@editorjs/editorjs';
-import useUserProfile from '../../hook/useUserProfile';
 import { useParams } from 'react-router-dom'
-import { callGetApiWithoutToken, callPutApiWithoutToken } from '../../helpers/request';
+import useUserProfile from '../../hook/useUserProfile';
+import React, {useState, useEffect, useRef} from 'react'
 import Configuration from '../../helpers/editor_configuration';
+import { callGetApiWithoutToken, callPutApiWithoutToken } from '../../helpers/request';
 import './ReadContent.scss'
 
 const apiDomain = process.env.REACT_APP_API_DOMAIN;
@@ -64,6 +65,7 @@ function ReadContent() {
             throw(err)
         }
     }
+
     const onSaveEditPost = () => {
         setIsReadOnly(true);
         setShowEditIcon(true);
@@ -140,15 +142,13 @@ function ReadContent() {
             <div className='author-post'>
                 <div className='author-post'>
                     <div className='element'>
-                        <img src='/account-logo.png' alt='' />
+                        <img src={userProfile?.AvatarUrl} alt='' />
                     </div>
                     <div className='element'>
-                        <div className='element-child content-text'>Kioku</div>
-                        <div className='element-child content-text'>7 min read</div>
+                        <div className='element-child content-text'>{userProfile?.userName}</div>
                     </div>
                     <div className='element'>
                         <div className='element-child sub-title-text' style={{color: "green"}}>Follow</div>
-                        <div className='element-child content-text'> Oct 1</div>
                     </div>
                 </div>
                 <div className='post-action'>
