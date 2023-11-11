@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import ProFile from '../../components/ProfileComponent/ProFile';
 import Navigator from '../../components/NavigatorComponent/Navigator';
 import ReadContent from '../../components/ReadContentComponent/ReadContent';
 import ProfilePopup from '../../components/NavigatorComponent/ProfilePopup';

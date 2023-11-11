@@ -61,7 +61,7 @@ function ReadContent() {
             await callPutApiWithoutToken(apiUrl, body);
             getPostInfo();
         } catch (err) {
-            throw(err)
+            alert("Something When Wrong !");
         }
     }
 
