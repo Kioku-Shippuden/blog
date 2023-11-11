@@ -6,6 +6,7 @@ import PublishPost from './PublishPost';
 import SaveCachePost from './SaveCachePost';
 import CreateContent from './CreateContent';
 import ManageProfile  from './ManageProfile';
+import useUserProfile from '../../hook/useUserProfile';
 import { useNavigate } from 'react-router-dom';
 import { useAlert } from '../../hook/useAlert';
 import './style/Navigator.scss';
@@ -13,7 +14,7 @@ import { callPutApiWithoutToken } from '../../helpers/request';
 const apiDomain = process.env.REACT_APP_API_DOMAIN
 function Navigator(props) {
   const { typePage, setShowPublishPopup, showProfilePopup, showNotificationPopup, setShowProfilePopup, setShowNotificationPopup, onSaveEdit } = props;
-
+  const useProfile = useUserProfile();
   const { alertState, setAlertState } = useAlert();
   const navigate = useNavigate();
   
@@ -50,19 +51,21 @@ function Navigator(props) {
         (typePage === 'HomePage' || typePage === 'UserPage' || typePage === 'ReadPage') &&
         <Fragment>
           <div className='group-component'>
-            <Logo navigateHome={navigateHome}/>
+            <Logo navigateHome={navigateHome} useProfile={useProfile}/>
             <Search />
           </div>
           <CreateContent navigateWritePage={navigateWritePage}/>
           <Alert onClickAlertBtn={onClickAlertBtn}/>
-          <ManageProfile onClickManageProfileBtn={onClickManageProfileBtn}/>
+          <ManageProfile 
+            useProfile={useProfile}
+            onClickManageProfileBtn={onClickManageProfileBtn}/>
         </Fragment>
       }
       {
         typePage === 'WritePage' &&
         <Fragment>
           <div className='group-component'>
-            <Logo navigateHome={navigateHome}/>
+            <Logo navigateHome={navigateHome} useProfile={useProfile}/>
             <SaveCachePost />
           </div>
           <PublishPost
@@ -71,7 +74,9 @@ function Navigator(props) {
             setShowPublishPopup={setShowPublishPopup} 
           />
           <Alert onClickAlertBtn={onClickAlertBtn}/>
-          <ManageProfile onClickManageProfileBtn={onClickManageProfileBtn}/>
+          <ManageProfile 
+            useProfile={useProfile}
+            onClickManageProfileBtn={onClickManageProfileBtn}/>
         </Fragment>
       }
     </div>

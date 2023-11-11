@@ -141,7 +141,7 @@ function ReadContent() {
             <div className='author-post'>
                 <div className='author-post'>
                     <div className='element'>
-                        <img src={userProfile?.AvatarUrl} alt='' />
+                        <img src={(userProfile !== null && userProfile.AvatarUrl !== null) ? userProfile.AvatarUrl : '/account-logo.png'} alt='' />
                     </div>
                     <div className='element'>
                         <div className='element-child content-text'>{userProfile?.userName}</div>
