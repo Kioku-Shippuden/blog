@@ -9,14 +9,18 @@ const WriteContent_V2 = (props) => {
 
   useEffect(() => {
     const initEditor = async () => {
+      var data = {};
       if (editor) {
         await editor.isReady;
         editor.destroy();
       }
 
-      const newEditor = new EditorJS(Configuration(readOnly, {}));
+      if (contentPost !== null) {
+        data = JSON.parse(contentPost).content;
+      }
+      const newEditor = new EditorJS(Configuration(readOnly, data));
 
-      setEditor(newEditor);
+      setEditor(newEditor, contentPost);
     };
 
     initEditor();

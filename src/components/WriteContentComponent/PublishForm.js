@@ -86,7 +86,7 @@ function PublishForm(props) {
             await callPostApiWithoutToken(apiUrl, formData);
             navigate('/');
         } catch (err) {
-            console.log(err);
+            alert('Upload File Not SucessFull. Please Check Your Information Again!')
         }
     }
 

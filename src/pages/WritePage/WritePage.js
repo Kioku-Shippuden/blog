@@ -50,7 +50,7 @@ function WritePage() {
       {
         showPublishPopup === true && 
         <PublishForm
-          contentPost={contentPost} 
+          contentPost={contentPost}
           setShowPublishPopup={setShowPublishPopup}
         />
       }

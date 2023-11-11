@@ -16,6 +16,12 @@ const TitleComponent = (props) => {
     setTitlePost(e.target.value);
   };
 
+  useEffect(() => {
+    if (contentPost === null) return;
+    const title = JSON.parse(contentPost).title;
+    setText(title);
+  }, [contentPost])
+
   return (
     <div className='title-component'>
         <textarea 
